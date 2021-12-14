@@ -1,3 +1,8 @@
+# require 'ldap_auth'
+# ldap_auth = LdapAuth.new
+# ldap_auth.load_ldap_configuration('nu_ldap.yml')
+# authenticated = ldap_auth.ldap_auth('mjg994', 'SamburgHouse7@')
+
 # -*- coding: utf-8 -*-
 require 'net/ldap'
 
@@ -115,6 +120,26 @@ class Ldap
   end
 
 
+  def get_connection_new
+    get_ldap_config
+
+    ldap_args = { :host => @config['host'],
+                :port => @config['port'],
+                :encryption => (@config['ssl'] ? :simple_tls : nil),
+                :auth => {
+                  :method => :simple,
+                  :username => @config['admin_user'],
+                  :password => @config['admin_password']
+                }
+              }
+
+    if config[:ssl]
+      ldap_args[:encryption] = ssl_encryption
+    end
+
+    Net::LDAP.new(ldap_args)
+  end
+
   private :get_connection
 
   def ssl_encryption
@@ -139,16 +164,6 @@ class Ldap
     result
   end
   private :find_ldap_entries
-
-  def server
-    'directory.northwestern.edu'
-  end
-  private :server
-
-  def port
-    389
-  end
-  private :port
 
   def treebase
     'ou=People,dc=northwestern,dc=edu'
