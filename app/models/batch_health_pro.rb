@@ -356,12 +356,12 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnLifestyleAuthored' => 'lifestyle_ppi_survey_completion_date',
       'questionnaireOnMedicalHistory' => 'hist_ppi_survey_complete',
       'questionnaireOnMedicalHistoryAuthored' => 'hist_ppi_survey_completion_date',
-      'questionnaireOnMedications' => 'meds_ppi_survey_complete',
-      'questionnaireOnMedicationsAuthored' => 'meds_ppi_survey_completion_date',
       'questionnaireOnFamilyHealth' => 'family_ppi_survey_complete',
       'questionnaireOnFamilyHealthAuthored' => 'family_ppi_survey_completion_date',
       'questionnaireOnHealthcareAccess' => 'access_ppi_survey_complete',
       'questionnaireOnHealthcareAccessAuthored' => 'access_ppi_survey_completion_date',
+      # 'questionnaireOnMedications' => 'meds_ppi_survey_complete',
+      # 'questionnaireOnMedicationsAuthored' => 'meds_ppi_survey_completion_date',
       'physicalMeasurementsStatus' => 'physical_measurements_status',
       'physicalMeasurementsFinalizedTime' => 'physical_measurements_completion_date',
       'site' => 'paired_site',
@@ -435,8 +435,22 @@ class BatchHealthPro < ApplicationRecord
       'latestEhrReceiptTime' => 'most_recent_ehr_receipt',
       'sample1SAL2CollectionMethod' => 'saliva_collection',
       'questionnaireOnCopeDec' => 'cope_dec_ppi_survey_complete',
-      'questionnaireOnCopeDecAuthored' => 'cope_dec_ppi_survey_completion_date'
-
+      'questionnaireOnCopeDecAuthored' => 'cope_dec_ppi_survey_completion_date',
+      #new mommin 2
+      'questionnaireOnCopeFeb' => 'cope_feb_ppi_survey_complete',
+      'questionnaireOnCopeFebAuthored' => 'cope_feb_ppi_survey_completion_date',
+      'enrollmentStatusCoreMinusPMTime' => 'core_participant_minus_pm_date',
+      'questionnaireOnCopeVaccineMinute1' => 'summer_minute_ppi_survey_complete',
+      'questionnaireOnCopeVaccineMinute1Authored' => 'summer_minute_ppi_survey_completion_date',
+      'questionnaireOnCopeVaccineMinute2' => 'fall_minute_ppi_survey_complete',
+      'questionnaireOnCopeVaccineMinute2Authored' => 'fall_minute_ppi_survey_completion_date',
+      'digitalHealthSharingStatus' => 'digital_health_consent',
+      'questionnaireOnPersonalAndFamilyHealthHistory' => 'personal_and_family_hx_ppi_survey_complete',
+      'questionnaireOnPersonalAndFamilyHealthHistoryAuthored' => 'personal_and_family_hx_ppi_survey_completion_date',
+      'questionnaireOnSocialDeterminantsOfHealth' => 'sdoh_ppi_survey_complete',
+      'questionnaireOnSocialDeterminantsOfHealthAuthored' => 'sdoh_ppi_survey_completion_date',
+      'questionnaireOnCopeVaccineMinute3' => 'winter_minute_ppi_survey_complete',
+      'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date            '
     }
   end
 

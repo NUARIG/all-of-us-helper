@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201214165425) do
+ActiveRecord::Schema.define(version: 20220104141421) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -244,6 +244,20 @@ ActiveRecord::Schema.define(version: 20201214165425) do
     t.string "saliva_collection"
     t.string "cope_dec_ppi_survey_complete"
     t.string "cope_dec_ppi_survey_completion_date"
+    t.string "cope_feb_ppi_survey_complete"
+    t.string "cope_feb_ppi_survey_completion_date"
+    t.string "core_participant_minus_pm_date"
+    t.string "summer_minute_ppi_survey_complete"
+    t.string "summer_minute_ppi_survey_completion_date"
+    t.string "fall_minute_ppi_survey_complete"
+    t.string "fall_minute_ppi_survey_completion_date"
+    t.string "digital_health_consent"
+    t.string "personal_and_family_hx_ppi_survey_complete"
+    t.string "personal_and_family_hx_ppi_survey_completion_date"
+    t.string "sdoh_ppi_survey_complete"
+    t.string "sdoh_ppi_survey_completion_date"
+    t.string "winter_minute_ppi_survey_complete"
+    t.string "winter_minute_ppi_survey_completion_date"
     t.index ["batch_health_pro_id"], name: "idx_health_pros_batch_health_pro_id"
     t.index ["pmi_id"], name: "idx_health_pros_pmi_id"
   end
