@@ -450,7 +450,7 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnSocialDeterminantsOfHealth' => 'sdoh_ppi_survey_complete',
       'questionnaireOnSocialDeterminantsOfHealthAuthored' => 'sdoh_ppi_survey_completion_date',
       'questionnaireOnCopeVaccineMinute3' => 'winter_minute_ppi_survey_complete',
-      'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date            '
+      'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date'
     }
   end
 
