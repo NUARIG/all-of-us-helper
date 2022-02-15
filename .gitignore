@@ -28,6 +28,4 @@
 
 /uploads/
 playground.rb
-lib/setup/data/users.yml
-lib/setup/data/*.*
 lib/setup/data_out/*.*
