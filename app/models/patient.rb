@@ -546,7 +546,7 @@ class Patient < ApplicationRecord
   def digital_health_status_apple_health_ehr_complete_y
     if health_pro.present?
       if digital_health_consent.present?
-        if digital_health_consent['fitbit']
+        if digital_health_consent['appleEHR']
           case digital_health_consent['appleEHR']['status']
           when 'NO'
             '0'
