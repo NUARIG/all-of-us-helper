@@ -75,6 +75,27 @@ namespace :recruitment do
       handle_error(t, error)
     end
   end
+
+  desc "Delete Patients"
+  task(delete_patients: :environment) do  |t, args|
+    begin
+      options = { system: RedcapApi::SYSTEM_REDCAP_RECRUITMENT, api_token_type: ApiToken::API_TOKEN_TYPE_REDCAP_RECRUITMENT }
+      redcap_api = RedcapApi.initialize_redcap_api(options)
+      response = redcap_api.recruitment_patients
+      recruitment_patients = response[:response]
+
+      file = "#{Rails.root}/lib/setup/data/AoU_Recruitment_Report_delete.csv"
+      edw_patients = CSV.new(File.open(file), headers: true, col_sep: ",", return_headers: false,  quote_char: "\"")
+      edw_patients.each do |edw_patient|
+        recruitment_patient = recruitment_patients.detect{ |recruitment_patient| recruitment_patient['mrn'] ==  edw_patient['mrn'] }
+        if recruitment_patient.present?
+          redcap_api.delete_recruitment_patient(recruitment_patient['record_id'])
+        end
+      end
+    rescue => error
+      handle_error(t, error)
+    end
+  end
 end
 
 def handle_error(t, error)
