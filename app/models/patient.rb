@@ -578,7 +578,9 @@ class Patient < ApplicationRecord
     end
 
     def digital_health_consent
-      @digital_health_consent ||= JSON.parse(health_pro.digital_health_consent.gsub('=>', ':'))
+      if health_pro.digital_health_consent.present?
+        @digital_health_consent ||= JSON.parse(health_pro.digital_health_consent.gsub('=>', ':'))
+      end
     end
 
     def last_batch_health_pro_id
