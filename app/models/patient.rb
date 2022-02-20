@@ -517,7 +517,7 @@ class Patient < ApplicationRecord
   def digital_health_status_apple_health_kit_complete_y
     if health_pro.present?
       if digital_health_consent.present?
-        if digital_health_consent['fitbit']
+        if digital_health_consent['appleHealthKit']
           case digital_health_consent['appleHealthKit']['status']
           when 'NO'
             '0'
@@ -534,8 +534,8 @@ class Patient < ApplicationRecord
   def digital_health_status_apple_health_kit_completion_date_d
     if health_pro.present?
       if digital_health_consent.present?
-        if digital_health_consent['fitbit']
-          if digital_health_consent['fitbit']['authoredTime'].present?
+        if digital_health_consent['appleHealthKit']
+          if digital_health_consent['appleHealthKit']['authoredTime'].present?
             Date.parse(digital_health_consent['appleHealthKit']['authoredTime'])
           end
         end
@@ -563,8 +563,8 @@ class Patient < ApplicationRecord
   def digital_health_status_apple_health_ehr_completion_date_d
     if health_pro.present?
       if digital_health_consent.present?
-        if digital_health_consent['fitbit']
-          if digital_health_consent['fitbit']['authoredTime'].present?
+        if digital_health_consent['appleEHR']
+          if digital_health_consent['appleEHR']['authoredTime'].present?
             Date.parse(digital_health_consent['appleEHR']['authoredTime'])
           end
         end
