@@ -467,6 +467,12 @@ class Patient < ApplicationRecord
     end
   end
 
+  def sdoh_ppi_survey_completion_date_d
+    if health_pro.present?
+      health_pro.sdoh_ppi_survey_completion_date
+    end
+  end
+
   def winter_minute_ppi_survey_complete_y
     if health_pro.present?
       health_pro.winter_minute_ppi_survey_complete
