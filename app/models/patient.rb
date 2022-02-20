@@ -407,7 +407,7 @@ class Patient < ApplicationRecord
     end
   end
 
-  def cope_feb_ppi_survey_complete
+  def cope_feb_ppi_survey_complete_y
     if health_pro.present?
       health_pro.cope_feb_ppi_survey_complete
     end
