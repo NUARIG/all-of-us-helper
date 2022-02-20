@@ -443,6 +443,12 @@ class Patient < ApplicationRecord
     end
   end
 
+  def fall_minute_ppi_survey_completion_date_d
+    if health_pro.present?
+      health_pro.fall_minute_ppi_survey_completion_date
+    end
+  end
+
   def personal_and_family_hx_ppi_survey_complete_y
     if health_pro.present?
       health_pro.personal_and_family_hx_ppi_survey_complete
