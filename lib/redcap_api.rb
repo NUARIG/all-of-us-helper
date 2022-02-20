@@ -219,9 +219,9 @@ class RedcapApi
     personal_and_family_hx_ppi_survey_completion_date_d = Date.parse(personal_and_family_hx_ppi_survey_completion_date_d) if personal_and_family_hx_ppi_survey_completion_date_d
     sdoh_ppi_survey_completion_date_d = Date.parse(sdoh_ppi_survey_completion_date_d) if sdoh_ppi_survey_completion_date_d
     winter_minute_ppi_survey_completion_date_d = Date.parse(winter_minute_ppi_survey_completion_date_d) if winter_minute_ppi_survey_completion_date_d
-    digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_status_fitbit_completion_date_d) if digital_health_status_fitbit_completion_date_d
-    digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_status_apple_health_kit_completion_date_d) if digital_health_status_apple_health_kit_completion_date_d
-    digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
+    # digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_status_fitbit_completion_date_d) if digital_health_status_fitbit_completion_date_d
+    # digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_status_apple_health_kit_completion_date_d) if digital_health_status_apple_health_kit_completion_date_d
+    # digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
 
     puts 'before the API call'
 
@@ -290,9 +290,9 @@ class RedcapApi
     personal_and_family_hx_ppi_survey_completion_date_d = Date.parse(personal_and_family_hx_ppi_survey_completion_date_d) if personal_and_family_hx_ppi_survey_completion_date_d
     sdoh_ppi_survey_completion_date_d = Date.parse(sdoh_ppi_survey_completion_date_d) if sdoh_ppi_survey_completion_date_d
     winter_minute_ppi_survey_completion_date_d = Date.parse(winter_minute_ppi_survey_completion_date_d) if winter_minute_ppi_survey_completion_date_d
-    digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_status_fitbit_completion_date_d) if digital_health_status_fitbit_completion_date_d
-    digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_status_apple_health_kit_completion_date_d) if digital_health_status_apple_health_kit_completion_date_d
-    digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
+    # digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_status_fitbit_completion_date_d) if digital_health_status_fitbit_completion_date_d
+    # digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_status_apple_health_kit_completion_date_d) if digital_health_status_apple_health_kit_completion_date_d
+    # digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
 
     ts = Date.today
     if (withdrawn_y == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || deactivation_status == HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_NO_CONTACT)
@@ -357,9 +357,9 @@ class RedcapApi
     personal_and_family_hx_ppi_survey_completion_date_d = Date.parse(personal_and_family_hx_ppi_survey_completion_date_d) if personal_and_family_hx_ppi_survey_completion_date_d
     sdoh_ppi_survey_completion_date_d = Date.parse(sdoh_ppi_survey_completion_date_d) if sdoh_ppi_survey_completion_date_d
     winter_minute_ppi_survey_completion_date_d = Date.parse(winter_minute_ppi_survey_completion_date_d) if winter_minute_ppi_survey_completion_date_d
-    digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_status_fitbit_completion_date_d) if digital_health_status_fitbit_completion_date_d
-    digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_status_apple_health_kit_completion_date_d) if digital_health_status_apple_health_kit_completion_date_d
-    digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
+    # digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_status_fitbit_completion_date_d) if digital_health_status_fitbit_completion_date_d
+    # digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_status_apple_health_kit_completion_date_d) if digital_health_status_apple_health_kit_completion_date_d
+    # digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
 
     if (withdrawn_y == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || deactivation_status == HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_NO_CONTACT)
     payload = {
