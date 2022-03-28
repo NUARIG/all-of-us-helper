@@ -10,7 +10,8 @@ namespace :recruitment do
       response = redcap_api.recruitment_patients
       recruitment_patients = response[:response]
 
-      file = "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
+      # file = "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
+      file = 'patients_to_add_to_redcap_2022_03_01.csv'
 
       if Rails.env.development?
         file = "#{Rails.root}/lib/setup/data/#{file}"
@@ -42,7 +43,12 @@ namespace :recruitment do
       study_tracker_api = StudyTrackerApi.new
       study_tracker_api.generate_token
       options = { 'current_status_after' =>  last_called_at }
-      response = study_tracker_api.cohorts(options)
+
+      response = nil
+      with_retries(:max_tries => 3) do |attempt_number|
+        response = study_tracker_api.cohorts(options)
+      end
+
       cohorts = response[:response]
       options = { system: RedcapApi::SYSTEM_REDCAP_RECRUITMENT, api_token_type: ApiToken::API_TOKEN_TYPE_REDCAP_RECRUITMENT }
       redcap_api = RedcapApi.initialize_redcap_api(options)
@@ -90,6 +96,34 @@ namespace :recruitment do
         recruitment_patient = recruitment_patients.detect{ |recruitment_patient| recruitment_patient['mrn'] ==  edw_patient['mrn'] }
         if recruitment_patient.present?
           redcap_api.delete_recruitment_patient(recruitment_patient['record_id'])
+        end
+      end
+    rescue => error
+      handle_error(t, error)
+    end
+  end
+
+  desc "Delete Patients by Email"
+  task(delete_patients_by_email: :environment) do  |t, args|
+    begin
+      options = { system: RedcapApi::SYSTEM_REDCAP_RECRUITMENT, api_token_type: ApiToken::API_TOKEN_TYPE_REDCAP_RECRUITMENT }
+      redcap_api = RedcapApi.initialize_redcap_api(options)
+      response = redcap_api.recruitment_patients
+      recruitment_patients = response[:response]
+
+      # file = "#{Rails.root}/lib/setup/data/AoU_Recruitment_Report_delete.csv"
+      file = "#{Rails.root}/lib/setup/data/patients_to_add_to_redcap_2022_03_01_fix.csv"
+      edw_patients = CSV.new(File.open(file), headers: true, col_sep: ",", return_headers: false,  quote_char: "\"")
+      edw_patients.each do |edw_patient|
+        puts edw_patient['patient_email_address']
+        rp = recruitment_patients.select{ |recruitment_patient| recruitment_patient['patient_email_address'] ==  edw_patient['patient_email_address'] }
+        rp.each do |recruitment_patient|
+          if recruitment_patient.present? && recruitment_patient['mrn'].blank?
+            puts 'we going to delete!'
+            puts recruitment_patient['record_id']
+            puts 'we we did it!'
+            redcap_api.delete_recruitment_patient(recruitment_patient['record_id'])
+          end
         end
       end
     rescue => error

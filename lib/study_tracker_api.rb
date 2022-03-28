@@ -165,6 +165,7 @@ class StudyTrackerApi
       Rails.logger.info(error)
       Rails.logger.info(e.class)
       Rails.logger.info(e.backtrace.join("\n"))
+      raise e
     rescue Exception => e
       ExceptionNotifier.notify_exception(e)
       ApiLog.create_api_log(url, nil, nil, e.message, StudyTrackerApi::SYSTEM)
@@ -172,6 +173,7 @@ class StudyTrackerApi
       Rails.logger.info(e.class)
       Rails.logger.info(e.message)
       Rails.logger.info(e.backtrace.join("\n"))
+      raise e
     end
 
     { response: response, error: error }

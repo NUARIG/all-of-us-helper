@@ -51,6 +51,7 @@ gem 'paper_trail'
 gem 'pundit'
 gem 'record_tag_helper'
 gem 'rest-client'
+gem 'retries'
 # gem 'webpacker'
 gem 'uuid'
 gem 'whenever', :require => false
