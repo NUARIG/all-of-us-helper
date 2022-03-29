@@ -28,13 +28,13 @@ case environment
       rake "recruitment:load_export"
     end
 
-    # every 2.hour do # 1.minute 1.day 1.week 1.month 1.year is also supported
-    #   rake "recruitment:load_cohorts"
-    # end
-
-    every :day, at: '7:00pm' do # Use any day of the week or :weekend, :weekday
+    every 2.hour do # 1.minute 1.day 1.week 1.month 1.year is also supported
       rake "recruitment:load_cohorts"
     end
+
+    # every :day, at: '7:00pm' do # Use any day of the week or :weekend, :weekday
+    #   rake "recruitment:load_cohorts"
+    # end
 
     every :day, at: '12:00am' do # Use any day of the week or :weekend, :weekday
       rake "health_pro_api:rotate_service_account_key"
