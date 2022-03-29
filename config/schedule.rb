@@ -28,7 +28,7 @@ case environment
       rake "recruitment:load_export"
     end
 
-    every 2.hour do # 1.minute 1.day 1.week 1.month 1.year is also supported
+    every 8.hour do # 1.minute 1.day 1.week 1.month 1.year is also supported
       rake "recruitment:load_cohorts"
     end
 
