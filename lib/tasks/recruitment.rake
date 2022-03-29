@@ -39,7 +39,7 @@ namespace :recruitment do
         last_called_at = Date.parse('1/1/1900')
       end
 
-      last_called_at = last_called_at.to_date - 30
+      last_called_at = last_called_at.to_date - 2
       study_tracker_api = StudyTrackerApi.new
       study_tracker_api.generate_token
       options = { 'current_status_after' =>  last_called_at }
