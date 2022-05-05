@@ -101,15 +101,23 @@
 
     @include breakpoint(large) {
       h1 {
-        @include grid-column($columns: 8);
+        @include grid-column($columns: 4);
       }
 
       .status {
-        @include grid-column($columns: 6);
+        @include grid-column($columns: 4);
+      }
+
+      .paired_organization {
+        @include grid-column($columns: 4);
+      }
+
+      .paired_organization {
+        @include grid-column($columns: 4);
       }
 
       .search-box {
-        @include grid-column($columns: 6);
+        @include grid-column($columns: 4);
       }
 
       .search-buttons{

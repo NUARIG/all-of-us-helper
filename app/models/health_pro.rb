@@ -125,6 +125,18 @@ class HealthPro < ApplicationRecord
     end
   end
 
+  scope :by_paired_organization, ->(paired_organization) do
+    if paired_organization.present?
+     where(paired_organization: paired_organization)
+    end
+  end
+
+  scope :by_paired_site, ->(paired_site) do
+    if paired_site.present?
+     where(paired_site: paired_site)
+    end
+  end
+
   scope :search_across_fields, ->(search_token, options={}) do
     if search_token
       search_token.downcase!

@@ -49,12 +49,15 @@ class BatchHealthProsController < ApplicationController
     authorize BatchHealthPro
     params[:page]||= 1
     params[:status]||= HealthPro::STATUS_MATCHABLE
+    params[:paired_organization]||= 'all'
+    params[:paired_site]||= 'all'
+
     options = {}
     options[:sort_column] = sort_column
     options[:sort_direction] = sort_direction
 
     @unmatched_patients = Patient.not_deleted.by_registration_status(Patient::REGISTRATION_STATUS_UNMATCHED).map { |patient| ["#{patient.full_name} | Email: #{patient.email} | Phone: #{patient.phone_1} | Record ID: #{patient.record_id}", patient.id] }
-    @health_pros = @batch_health_pro.health_pros.search_across_fields(params[:search], options).by_status(params[:status]).paginate(per_page: 10, page: params[:page])
+    @health_pros = @batch_health_pro.health_pros.search_across_fields(params[:search], options).by_status(params[:status]).by_paired_organization(params[:paired_organization]).by_paired_site(params[:paired_site]).paginate(per_page: 10, page: params[:page])
   end
 
   private
