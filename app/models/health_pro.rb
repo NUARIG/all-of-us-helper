@@ -126,13 +126,13 @@ class HealthPro < ApplicationRecord
   end
 
   scope :by_paired_organization, ->(paired_organization) do
-    if paired_organization.present?
+    if paired_organization.present? && paired_organization != 'all'
      where(paired_organization: paired_organization)
     end
   end
 
   scope :by_paired_site, ->(paired_site) do
-    if paired_site.present?
+    if paired_site.present? && paired_site != 'all'
      where(paired_site: paired_site)
     end
   end
