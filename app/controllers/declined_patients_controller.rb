@@ -1,4 +1,3 @@
-require 'redcap_api'
 class DeclinedPatientsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_health_pro, only: [:update]
@@ -30,7 +29,7 @@ class DeclinedPatientsController < ApplicationController
     end
 
     def load_health_pro
-      @patient = HealthPro.find(params[:id])
+      @health_pro = HealthPro.find(params[:id])
     end
 
     def sort_column
