@@ -5,11 +5,11 @@
 
     @include breakpoint(large) {
       h1 {
-        @include grid-column($columns: 6);
+        @include grid-column($columns: 10);
       }
 
       .search-box {
-        @include grid-column($columns: 14);
+        @include grid-column($columns: 10);
       }
 
       .search-buttons{
@@ -19,7 +19,7 @@
 
     .search-buttons{
       margin-top: 1.5rem;
-      #search-patients-button {
+      #search-declined-patients-button {
         margin-top: .50rem;
       }
     }
