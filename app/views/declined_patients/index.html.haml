@@ -40,6 +40,8 @@
             - @declined_patients.each do |declined_patient|
               = content_tag_for(:tr, declined_patient) do
                 %td.pmi_id
+                  = declined_patient.id
+                  %br
                   = declined_patient.pmi_id
                 %td.first_name
                   = declined_patient.first_name
