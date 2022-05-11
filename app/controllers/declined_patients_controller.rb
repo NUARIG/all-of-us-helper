@@ -34,7 +34,7 @@ class DeclinedPatientsController < ApplicationController
     end
 
     def sort_column
-      [ 'pmi_id', 'first_name', 'email', 'last_name', 'paired_site'].include?(params[:sort]) ? params[:sort] : 'last_name'
+      [ 'pmi_id', 'first_name', 'email', 'last_name', 'paired_organization', 'paired_site'].include?(params[:sort]) ? params[:sort] : 'last_name'
     end
 
     def sort_direction
