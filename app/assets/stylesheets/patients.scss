@@ -69,10 +69,6 @@
   }
 }
 
-#patient-header {
-  @include grid-column-row();
-}
-
 #patient-show {
   @include grid-column-row();
 

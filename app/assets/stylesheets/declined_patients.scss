@@ -1,6 +1,6 @@
 #declined-patients-header {
   @include grid-column-row();
-  #search-patients-form {
+  #search-declined-patients-form {
     @include grid-column($columns: 24);
 
     @include breakpoint(large) {
@@ -59,8 +59,4 @@
       @include grid-column($columns: 24);
     }
   }
-}
-
-#declined-patients-header {
-  @include grid-column-row();
 }
