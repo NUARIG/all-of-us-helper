@@ -24,8 +24,8 @@ class DeclinedPatientsController < ApplicationController
   end
 
   private
-    def patient_params
-      params.require(:patient).permit(:record_id, :first_name, :last_name, :birth_date, :email, :gender, :ethnicity, :nmhc_mrn, :empi_match_id, :health_pro_id, { race_ids:[] }, patient_features_attributes: [:id, :feature, :enabled, :_destroy])
+    def health_pro_params
+      params.require(:health_pro).permit(:status)
     end
 
     def load_health_pro
