@@ -119,6 +119,10 @@ class HealthPro < ApplicationRecord
 
   after_initialize :set_defaults
 
+  scope :declined, -> do
+    by_status(HealthPro::STATUS_DECLINED)
+  end
+
   scope :by_status, ->(status) do
     if status.present?
      where(status: status)
@@ -143,6 +147,22 @@ class HealthPro < ApplicationRecord
     if paired_site.present? && paired_site == 'all (not UNSET)'
        where("paired_site != 'UNSET'")
     end
+  end
+
+  scope :search_across_fields_declined, ->(search_token, options={}) do
+    if search_token
+      search_token.downcase!
+    end
+    options = { sort_column: 'last_name', sort_direction: 'asc' }.merge(options)
+
+    if search_token
+      p = where(["lower(pmi_id) like ? OR lower(last_name) like ? OR lower(first_name) like ?", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%"])
+    end
+
+    sort = options[:sort_column] + ' ' + options[:sort_direction] + ', health_pros.id ASC'
+    p = p.nil? ? order(sort) : p.order(sort)
+
+    p
   end
 
   scope :search_across_fields, ->(search_token, options={}) do
@@ -258,6 +278,10 @@ class HealthPro < ApplicationRecord
     else
       Patient::GENDER_UNKNOWN_OR_NOT_REPORTED
     end
+  end
+
+  def undecline!()
+
   end
 
   private
