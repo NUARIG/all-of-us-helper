@@ -50,7 +50,7 @@
                 %td.paired_site
                   = declined_patient.paired_site
                 %td.update-declined-patient
-                  = form_with(model: health_pro, local: true, class: 'update-declined-patient') do |f|
+                  = form_with model: declined_patient, url: declined_patient_url(declined_patient), method: :put, local: true, class: 'update-declined-patient' do |f|
                     = f.hidden_field :status, value: HealthPro::STATUS_MATCHABLE
-                    = f.submit 'Decline Health Pro', class: 'button', 'data-confirm': 'Undecline patient?'
+                    = f.submit 'Undecline Health Pro', class: 'button', 'data-confirm': 'Undecline patient?'
         = will_paginate @declined_patients, renderer: FoundationPagination::Rails
