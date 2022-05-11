@@ -1,0 +1,66 @@
+#declined-patients-header {
+  @include grid-column-row();
+  #search-patients-form {
+    @include grid-column($columns: 24);
+
+    @include breakpoint(large) {
+      h1 {
+        @include grid-column($columns: 6);
+      }
+
+      .search-box {
+        @include grid-column($columns: 14);
+      }
+
+      .search-buttons{
+        @include grid-column($columns: 4);
+      }
+    };
+
+    .search-buttons{
+      margin-top: 1.5rem;
+      #search-patients-button {
+        margin-top: .50rem;
+      }
+    }
+  }
+}
+
+#declined-patients {
+  margin-top: 1rem;
+  @include grid-row();
+  #patients-list {
+		@include grid-column($columns: 24);
+
+    table {
+      table-layout: fixed;
+      width: 100%;
+    }
+
+    td {
+      word-wrap: break-word;
+    }
+
+    th .current {
+      padding-right: 2em;
+      background-repeat: no-repeat;
+      background-position: right center;
+    }
+
+    th .asc {
+      background-image: image_url("drop25.png");
+    }
+
+    th .desc {
+      background-image: image_url("drop27.png");
+    }
+
+    table {
+      @include grid-column($columns: 24);
+    }
+  }
+}
+
+#declined-patients-header {
+  @include grid-column-row();
+}
