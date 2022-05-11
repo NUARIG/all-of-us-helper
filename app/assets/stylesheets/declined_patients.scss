@@ -29,7 +29,7 @@
 #declined-patients {
   margin-top: 1rem;
   @include grid-row();
-  #patients-list {
+  #declined-patients-list {
 		@include grid-column($columns: 24);
 
     table {
