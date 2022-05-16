@@ -137,6 +137,7 @@ class HealthPro < ApplicationRecord
     if paired_organization == 'all (not UNSET)'
       p = where("paired_organization != 'UNSET'")
     end
+
     if p.nil?
       p =  all
     end
@@ -144,12 +145,16 @@ class HealthPro < ApplicationRecord
   end
 
   scope :by_paired_site, ->(paired_site) do
-    if paired_site.present? && paired_site != 'all'
+    if !['all (not UNSET)','all'].include?(paired_site)
      p = where(paired_site: paired_site)
     end
 
-    if paired_site.present? && paired_site == 'all (not UNSET)'
-      p =where("paired_site != 'UNSET'")
+    if paired_site == 'all (not UNSET)'
+      p = where("paired_site != 'UNSET'")
+    end
+
+    if p.nil?
+      p =  all
     end
     p
   end
