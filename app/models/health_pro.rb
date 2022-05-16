@@ -130,24 +130,28 @@ class HealthPro < ApplicationRecord
   end
 
   scope :by_paired_organization, ->(paired_organization) do
-    where(paired_organization: paired_organization)
-    # if !['all (not UNSET)','all'].include?(paired_organization)
-    #   where(paired_organization: paired_organization)
-    # end
-    #
-    # if paired_organization == 'all (not UNSET)'
-    #   where("paired_organization != 'UNSET'")
-    # end
+    if !['all (not UNSET)','all'].include?(paired_organization)
+      p = where(paired_organization: paired_organization)
+    end
+
+    if paired_organization == 'all (not UNSET)'
+      p = where("paired_organization != 'UNSET'")
+    end
+    if p.nil?
+      p =  all
+    end
+    p
   end
 
   scope :by_paired_site, ->(paired_site) do
     if paired_site.present? && paired_site != 'all'
-     where(paired_site: paired_site)
+     p = where(paired_site: paired_site)
     end
 
     if paired_site.present? && paired_site == 'all (not UNSET)'
-       where("paired_site != 'UNSET'")
+      p =where("paired_site != 'UNSET'")
     end
+    p
   end
 
   scope :search_across_fields_declined, ->(search_token, options={}) do
