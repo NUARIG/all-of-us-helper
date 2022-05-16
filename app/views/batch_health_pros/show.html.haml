@@ -15,7 +15,7 @@
         .paired_organization
           %label{for: 'paired_organization' }
             Paired Organization
-          = select_tag :paired_organization, options_for_select(['UNSET', 'all (not UNSET)'].concat(HealthPro::PAIRED_ORGANIZATIONS).map { |paired_organization| [paired_organization, paired_organization] }, params[:paired_organization])
+          = select_tag :paired_organization, options_for_select(['UNSET', 'all (not UNSET)'].concat(HealthPro::PAIRED_ORGANIZATIONS).map { |paired_organization| [paired_organization, paired_organization] }, params[:paired_organization]
         .paired_site
           %label{for: 'paired_site' }
             Paired Site
