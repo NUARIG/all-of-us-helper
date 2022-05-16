@@ -130,12 +130,12 @@ class HealthPro < ApplicationRecord
   end
 
   scope :by_paired_organization, ->(paired_organization) do
-    if paired_organization.present? && paired_organization != 'all'
-     where(paired_organization: paired_organization)
+    if !['all (not UNSET)','all'].include?(paired_organization)
+      where(paired_organization: paired_organization)
     end
 
-    if paired_organization.present? && paired_organization == 'all (not UNSET)'
-        where("paired_organization != 'UNSET'")
+    if paired_organization == 'all (not UNSET)'
+      where("paired_organization != 'UNSET'")
     end
   end
 
