@@ -11,7 +11,7 @@ namespace :recruitment do
       recruitment_patients = response[:response]
 
       # file = "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
-      file = "patients_to_add_20220503.csv"
+      file = "patients_to_add_20220517.csv"
 
       if Rails.env.development?
         file = "#{Rails.root}/lib/setup/data/#{file}"
