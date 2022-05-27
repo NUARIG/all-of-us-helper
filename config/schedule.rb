@@ -24,7 +24,7 @@ set :output, {:error => 'log/whenever_error.log', :standard => 'log/whenever.log
 
 case environment
   when 'production'
-    every :friday, at: '6:25am' do # Use any day of the week or :weekend, :weekday
+    every :friday, at: '7:15am' do # Use any day of the week or :weekend, :weekday
       rake "recruitment:load_export"
     end
 
