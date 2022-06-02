@@ -10,8 +10,8 @@ namespace :recruitment do
       response = redcap_api.recruitment_patients
       recruitment_patients = response[:response]
 
-      # file = "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
-      file = "AoU_Recruitment_Report_20220531.csv"
+      file = "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
+      # file = "AoU_Recruitment_Report_20220531.csv"
 
       if Rails.env.development?
         file = "#{Rails.root}/lib/setup/data/#{file}"
