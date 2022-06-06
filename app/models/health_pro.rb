@@ -165,7 +165,7 @@ class HealthPro < ApplicationRecord
                  FROM health_pros hp2
                  WHERE pmi_id in(
                                   SELECT pmi_id
-                                  FROM health_pros hp 3
+                                  FROM health_pros hp3
                                   WHERE hp3.status = 'declined'
                                 )
                  GROUP BY hp2.pmi_id
