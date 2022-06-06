@@ -8,8 +8,12 @@
         @include grid-column($columns: 10);
       }
 
+      .biospecimens_location {
+        @include grid-column($columns: 4);
+      }
+
       .search-box {
-        @include grid-column($columns: 10);
+        @include grid-column($columns: 6);
       }
 
       .search-buttons{
