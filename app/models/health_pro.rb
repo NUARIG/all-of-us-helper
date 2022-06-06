@@ -161,7 +161,7 @@ class HealthPro < ApplicationRecord
 
   scope :by_biospecimens_location, ->(biospecimens_location) do
     if !['all'].include?(biospecimens_location)
-      p = where('EXISTS (SELECT 1 FROM health_pros hp2 WHERE hp2.biospecimens_location = ? AND hp2.id = (SELECT max(hp3.id) FROM health_pros hp3 WHERE health_pros.pmi_id = hp3.pmi_id))', biospecimens_location)
+      p = where('EXISTS (SELECT 1 FROM health_pros hp2 WHERE health_pros.pmi_id = hp2.pmi_id AND hp2.biospecimens_location = ? AND hp2.id = (SELECT max(hp3.id) FROM health_pros hp3 WHERE hp2.pmi_id = hp3.pmi_id))', biospecimens_location)
     else
       p =  all
     end
