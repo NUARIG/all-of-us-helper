@@ -36,9 +36,9 @@
               %th.last_name
                 = sortable 'last_name'
               %th.paired_orginization
-                = sortable 'paired_organization'
+                Paired Organization
               %th.paired_site
-                = sortable 'paired_site'
+                Paired Site
               %th.biospecimens_location
                 Biospecimens Location'
               %th.update-declined-patient
@@ -52,9 +52,9 @@
                 %td.last_name
                   = declined_patient.last_name
                 %td.paired_organization
-                  = declined_patient.paired_organization
+                  = declined_patient.latest_paired_orginization
                 %td.paired_site
-                  = declined_patient.paired_site
+                  = declined_patient.latest_paired_site
                 %td.biospecimens_location
                   = declined_patient.last_health_pro.biospecimens_location
                 %td.update-declined-patient

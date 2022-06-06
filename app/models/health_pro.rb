@@ -161,7 +161,7 @@ class HealthPro < ApplicationRecord
 
   scope :by_biospecimens_location, ->(biospecimens_location) do
     if !['all'].include?(biospecimens_location)
-      p = where(biospecimens_location: biospecimens_location)
+      p = where('EXISTS (SELECT 1 FROM health_pros hp2 WHERE hp2  = ? health_pros.pmi_id = hp2.pmi_id AND hp.id = (SELECT max(id) FROM health_pros hp3 WHERE health_pros.pmi_id= hp3.pmi_id))', biospecimens_location)
     else
       p =  all
     end
@@ -298,6 +298,14 @@ class HealthPro < ApplicationRecord
     else
       Patient::GENDER_UNKNOWN_OR_NOT_REPORTED
     end
+  end
+
+  def latest_paired_orginization
+    last_health_pro.paired_orginization
+  end
+
+  def latest_paired_site
+    last_health_pro.paired_site
   end
 
   def latest_biospecimens_location
