@@ -6,6 +6,7 @@ class DeclinedPatientsController < ApplicationController
   def index
     authorize HealthPro, :declined_patients_index?
     params[:page]||= 1
+    params[:biospecimens_location]||= 'all'
     options = {}
     options[:sort_column] = sort_column
     options[:sort_direction] = sort_direction
