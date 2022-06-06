@@ -159,6 +159,13 @@ class HealthPro < ApplicationRecord
     p
   end
 
+  scope :by_biospecimens_location, ->(biospecimens_location) do
+    if !['all'].include?(biospecimens_location)
+      p = where(biospecimens_location: biospecimens_location)
+    end
+    p
+  end
+
   scope :search_across_fields_declined, ->(search_token, options={}) do
     if search_token
       search_token.downcase!

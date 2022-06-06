@@ -12,6 +12,10 @@
           %label{for: 'search' }
             Search
           = text_field_tag :search, (params[:search].nil? ? '' : params[:search]), type: 'search'
+        .biospecimens_location
+          %label{for: 'biospecimens_location' }
+            Biospecimens Location
+          = select_tag :biospecimens_location, options_for_select(HealthPro::BIOSPECIMEN_LOCATIONS.map { |biospecimens_location| [biospecimens_location, biospecimens_location] }, (params[:biospecimens_location].blank? ? '' : params[:biospecimens_location])), { include_blank: 'all' }
         .search-buttons
           %button{ type: 'submit', id: 'search-declined-patients-button', class: 'tiny button' }
             Search

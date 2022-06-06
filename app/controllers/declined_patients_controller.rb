@@ -9,7 +9,7 @@ class DeclinedPatientsController < ApplicationController
     options = {}
     options[:sort_column] = sort_column
     options[:sort_direction] = sort_direction
-    @declined_patients = HealthPro.declined.search_across_fields_declined(params[:search], options).paginate(per_page: 10, page: params[:page])
+    @declined_patients = HealthPro.declined.by_biospecimens_location(params[:biospecimens_location]).search_across_fields_declined(params[:search], options).paginate(per_page: 10, page: params[:page])
   end
 
   def update
