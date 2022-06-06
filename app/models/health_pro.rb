@@ -162,7 +162,10 @@ class HealthPro < ApplicationRecord
   scope :by_biospecimens_location, ->(biospecimens_location) do
     if !['all'].include?(biospecimens_location)
       p = where(biospecimens_location: biospecimens_location)
+    else
+      p =  all
     end
+
     p
   end
 
@@ -295,10 +298,6 @@ class HealthPro < ApplicationRecord
     else
       Patient::GENDER_UNKNOWN_OR_NOT_REPORTED
     end
-  end
-
-  def undecline!()
-
   end
 
   private
