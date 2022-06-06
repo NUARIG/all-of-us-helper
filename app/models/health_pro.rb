@@ -300,8 +300,8 @@ class HealthPro < ApplicationRecord
     end
   end
 
-  def latest_paired_orginization
-    last_health_pro.paired_orginization
+  def latest_paired_organization
+    last_health_pro.paired_organization
   end
 
   def latest_paired_site
