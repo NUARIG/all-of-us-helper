@@ -40,7 +40,7 @@
               %th.paired_site
                 = sortable 'paired_site'
               %th.biospecimens_location
-                = sortable 'biospecimens_location'
+                Biospecimens Location'
               %th.update-declined-patient
           %tbody
             - @declined_patients.each do |declined_patient|
@@ -56,7 +56,7 @@
                 %td.paired_site
                   = declined_patient.paired_site
                 %td.biospecimens_location
-                  = declined_patient.biospecimens_location
+                  = declined_patient.last_health_pro.biospecimens_location
                 %td.update-declined-patient
                   = form_with model: declined_patient, url: declined_patient_url(declined_patient), method: :put, local: true, class: 'update-declined-patient' do |f|
                     = f.hidden_field :status, value: HealthPro::STATUS_MATCHABLE

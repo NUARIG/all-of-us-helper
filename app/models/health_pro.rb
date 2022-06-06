@@ -300,6 +300,14 @@ class HealthPro < ApplicationRecord
     end
   end
 
+  def latest_biospecimens_location
+    last_health_pro.biospecimens_location
+  end
+
+  def last_health_pro
+    @last_health_pro ||= HealthProfind(HealthPro.where(pmi_id: self.pmi_id).maximum(:id))
+  end
+
   private
     def set_defaults
       if self.new_record? && self.status.blank?
