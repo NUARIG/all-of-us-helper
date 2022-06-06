@@ -305,7 +305,7 @@ class HealthPro < ApplicationRecord
   end
 
   def last_health_pro
-    @last_health_pro ||= HealthProfind(HealthPro.where(pmi_id: self.pmi_id).maximum(:id))
+    @last_health_pro ||= HealthPro.find(HealthPro.where(pmi_id: self.pmi_id).maximum(:id))
   end
 
   private
