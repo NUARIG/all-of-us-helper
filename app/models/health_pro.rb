@@ -183,7 +183,7 @@ class HealthPro < ApplicationRecord
     options = { sort_column: 'last_name', sort_direction: 'asc' }.merge(options)
 
     if search_token
-      p = where(["lower(health_pros.pmi_id) like ? OR lower(health_pros.last_name) like ? OR lower(health_pros.first_name) like ?", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%"])
+      p = where(["lower(health_pros.pmi_id) like ? OR lower(health_pros.last_name) like ? OR lower(health_pros.first_name) like ? OR lower(health_pros.paired_organization) like ? OR lower(health_pros.paired_site) like ? OR lower(health_pros.biospecimens_location) like ?", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%"])
     end
 
     sort = "health_pros." + options[:sort_column] + ' ' + options[:sort_direction] + ', health_pros.id ASC'
