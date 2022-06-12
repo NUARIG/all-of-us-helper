@@ -36,11 +36,11 @@
               %th.last_name
                 = sortable 'last_name'
               %th.paired_orginization
-                Paired Organization
+                = sortable 'paired_orginization'
               %th.paired_site
-                Paired Site
+                = sortable 'paired_orginization'
               %th.biospecimens_location
-                Biospecimens Location'
+                = sortable 'biospecimens Location'
               %th.update-declined-patient
           %tbody
             - @declined_patients.each do |declined_patient|

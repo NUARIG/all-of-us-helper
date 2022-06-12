@@ -166,18 +166,9 @@ class HealthPro < ApplicationRecord
     end
     p
   end
-
-  scope :by_biospecimens_location_declined, ->(biospecimens_location) do
+  scope :by_biospecimens_location, ->(biospecimens_location) do
     if !['all'].include?(biospecimens_location)
-      p = joins("JOIN (SELECT hp2.pmi_id, max(hp2.id) as id
-                 FROM health_pros hp2
-                 WHERE hp2.pmi_id IN(
-                                      SELECT hp3.pmi_id
-                                      FROM health_pros hp3
-                                      WHERE hp3.status = 'declined'
-                                    )
-                 GROUP BY hp2.pmi_id
-                 ) hp4 ON health_pros.pmi_id = hp4.pmi_id JOIN health_pros hp5 ON hp4.id = hp5.id").where('hp5.biospecimens_location = ?', biospecimens_location)
+      p = where('health_pros.biospecimens_location = ?', biospecimens_location)
     else
       p =  all
     end
