@@ -120,7 +120,15 @@ class HealthPro < ApplicationRecord
   after_initialize :set_defaults
 
   scope :declined, -> do
-    by_status(HealthPro::STATUS_DECLINED)
+    joins("JOIN (SELECT hp2.pmi_id, max(hp2.id) as id
+                 FROM health_pros hp2
+                 WHERE hp2.pmi_id IN(
+                                      SELECT hp3.pmi_id
+                                      FROM health_pros hp3
+                                      WHERE hp3.status = 'declined'
+                                    )
+                 GROUP BY hp2.pmi_id
+                 ) hp4 ON health_pros.pmi_id = hp4.pmi_id AND health_pros.id = hp5.id").where('health_pros.status != ? AND EXISTS (SELECT 1 FROM health_pros hp5 WHERE health_pros.id != hp5.id AND health_pros.pmi_id = hp5.pmi_id AND hp5.status = ?)', HealthPro::STATUS_DECLINED, HealthPro::STATUS_DECLINED)
   end
 
   scope :by_status, ->(status) do
