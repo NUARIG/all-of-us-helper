@@ -15,7 +15,7 @@ class DeclinedPatientsController < ApplicationController
 
   def update
     authorize @health_pro, :declined_patient_update?
-    if @health_pro.update_attributes(health_pro_params)
+    if @health_pro.undecline!
       flash[:success] = 'Patient was successfully undeclined.'
       redirect_to declined_patients_url()
     else

@@ -323,6 +323,12 @@ class HealthPro < ApplicationRecord
     @last_health_pro ||= HealthPro.find(HealthPro.where(pmi_id: self.pmi_id).maximum(:id))
   end
 
+  def undecline!
+    health_pro = HealthPro.where('pmi_id = ? AND status = ?', self.pmi_id, HealthPro::STATUS_DECLINED).first
+    health_pro.status = HealthPro::STATUS_MATCHABLE
+    health_pro.save
+  end
+
   private
     def set_defaults
       if self.new_record? && self.status.blank?
