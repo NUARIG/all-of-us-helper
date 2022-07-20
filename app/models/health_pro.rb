@@ -330,6 +330,69 @@ class HealthPro < ApplicationRecord
     health_pro.save
   end
 
+  def set_digital_health_status_fitbit_complete_y
+    if digital_health_consent.present?
+      if digital_health_consent['fitbit']
+        self.digital_health_status_fitbit_complete_y = digital_health_consent['fitbit']['status']
+      end
+    end
+  end
+
+  def set_digital_health_status_fitbit_completion_date_d
+    if digital_health_consent.present?
+      if digital_health_consent['fitbit']
+        if digital_health_consent['fitbit']['authoredTime'].present?
+          self.digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_consent['fitbit']['authoredTime']).to_s
+        end
+      end
+    end
+  end
+
+  def set_digital_health_status_apple_health_kit_complete_y
+    if digital_health_consent.present?
+      if digital_health_consent['appleHealthKit']
+        self.digital_health_status_apple_health_kit_complete_y = digital_health_consent['appleHealthKit']['status']
+      end
+    end
+  end
+
+  def set_digital_health_status_apple_health_kit_completion_date_d
+    if digital_health_consent.present?
+      if digital_health_consent['appleHealthKit']
+        if digital_health_consent['appleHealthKit']['authoredTime'].present?
+          self.digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_consent['appleHealthKit']['authoredTime'])
+        end
+      end
+    end
+  end
+
+  def set_digital_health_status_apple_health_ehr_complete_y
+    if digital_health_consent.present?
+      if digital_health_consent['appleEHR']
+        self.digital_health_status_apple_health_ehr_complete_y = digital_health_consent['appleEHR']['status']
+      end
+    end
+  end
+
+  def set_digital_health_status_apple_health_ehr_completion_date_d
+    if digital_health_consent.present?
+      if digital_health_consent['appleEHR']
+        if digital_health_consent['appleEHR']['authoredTime'].present?
+          self.digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_consent['appleEHR']['authoredTime'])
+        end
+      end
+    end
+  end
+
+  def set_digital_health_fields
+    set_digital_health_status_fitbit_complete_y
+    set_digital_health_status_fitbit_completion_date_d
+    set_digital_health_status_apple_health_kit_complete_y
+    set_digital_health_status_apple_health_kit_completion_date_d
+    set_digital_health_status_apple_health_ehr_complete_y
+    set_digital_health_status_apple_health_ehr_completion_date_d
+  end
+
   private
     def set_defaults
       if self.new_record? && self.status.blank?

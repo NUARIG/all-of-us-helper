@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220104141421) do
+ActiveRecord::Schema.define(version: 20220719123115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -258,8 +258,18 @@ ActiveRecord::Schema.define(version: 20220104141421) do
     t.string "sdoh_ppi_survey_completion_date"
     t.string "winter_minute_ppi_survey_complete"
     t.string "winter_minute_ppi_survey_completion_date"
+    t.string "enrollment_site"
+    t.string "new_year_minute_ppi_survey_complete"
+    t.string "new_year_minute_ppi_survey_completion_date"
+    t.string "digital_health_status_fitbit_complete_y"
+    t.string "digital_health_status_fitbit_completion_date_d"
+    t.string "digital_health_status_apple_health_kit_complete_y"
+    t.string "digital_health_status_apple_health_kit_completion_date_d"
+    t.string "digital_health_status_apple_health_ehr_complete_y"
+    t.string "digital_health_status_apple_health_ehr_completion_date_d"
     t.index ["batch_health_pro_id"], name: "idx_health_pros_batch_health_pro_id"
     t.index ["pmi_id"], name: "idx_health_pros_pmi_id"
+    t.index ["status"], name: "index_health_pros_on_status"
   end
 
   create_table "invitation_code_assignments", force: :cascade do |t|
