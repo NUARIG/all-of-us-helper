@@ -332,17 +332,17 @@ class HealthPro < ApplicationRecord
 
   def set_digital_health_status_fitbit_complete_y
     if digital_health_consent.present?
-      if digital_health_consent['fitbit']
-        self.digital_health_status_fitbit_complete_y = digital_health_consent['fitbit']['status']
+      if self.digital_health_consent_to_json['fitbit']
+        self.digital_health_status_fitbit_complete_y = self.digital_health_consent_to_json['fitbit']['status']
       end
     end
   end
 
   def set_digital_health_status_fitbit_completion_date_d
     if digital_health_consent.present?
-      if digital_health_consent['fitbit']
-        if digital_health_consent['fitbit']['authoredTime'].present?
-          self.digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_consent['fitbit']['authoredTime']).to_s
+      if self.digital_health_consent_to_json['fitbit']
+        if self.digital_health_consent_to_json['fitbit']['authoredTime'].present?
+          self.digital_health_status_fitbit_completion_date_d = Date.parse(self.digital_health_consent_to_json['fitbit']['authoredTime']).to_s
         end
       end
     end
@@ -350,17 +350,17 @@ class HealthPro < ApplicationRecord
 
   def set_digital_health_status_apple_health_kit_complete_y
     if digital_health_consent.present?
-      if digital_health_consent['appleHealthKit']
-        self.digital_health_status_apple_health_kit_complete_y = digital_health_consent['appleHealthKit']['status']
+      if self.digital_health_consent_to_json['appleHealthKit']
+        self.digital_health_status_apple_health_kit_complete_y = self.digital_health_consent_to_json['appleHealthKit']['status']
       end
     end
   end
 
   def set_digital_health_status_apple_health_kit_completion_date_d
     if digital_health_consent.present?
-      if digital_health_consent['appleHealthKit']
-        if digital_health_consent['appleHealthKit']['authoredTime'].present?
-          self.digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_consent['appleHealthKit']['authoredTime'])
+      if self.digital_health_consent_to_json['appleHealthKit']
+        if self.digital_health_consent_to_json['appleHealthKit']['authoredTime'].present?
+          self.digital_health_status_apple_health_kit_completion_date_d = Date.parse(self.digital_health_consent_to_json['appleHealthKit']['authoredTime'])
         end
       end
     end
@@ -368,17 +368,17 @@ class HealthPro < ApplicationRecord
 
   def set_digital_health_status_apple_health_ehr_complete_y
     if digital_health_consent.present?
-      if digital_health_consent['appleEHR']
-        self.digital_health_status_apple_health_ehr_complete_y = digital_health_consent['appleEHR']['status']
+      if self.digital_health_consent_to_json['appleEHR']
+        self.digital_health_status_apple_health_ehr_complete_y = self.digital_health_consent_to_json['appleEHR']['status']
       end
     end
   end
 
   def set_digital_health_status_apple_health_ehr_completion_date_d
     if digital_health_consent.present?
-      if digital_health_consent['appleEHR']
-        if digital_health_consent['appleEHR']['authoredTime'].present?
-          self.digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_consent['appleEHR']['authoredTime'])
+      if self.digital_health_consent_to_json['appleEHR']
+        if self.digital_health_consent_to_json['appleEHR']['authoredTime'].present?
+          self.digital_health_status_apple_health_ehr_completion_date_d = Date.parse(self.digital_health_consent_to_json['appleEHR']['authoredTime'])
         end
       end
     end
@@ -397,6 +397,12 @@ class HealthPro < ApplicationRecord
     def set_defaults
       if self.new_record? && self.status.blank?
         self.status = HealthPro::STATUS_PENDING
+      end
+    end
+
+    def digital_health_consent_to_json
+      if self.digital_health_consent.present?
+        @digital_health_consent ||= JSON.parse(health_pro.digital_health_consent.gsub('=>', ':'))
       end
     end
 end
