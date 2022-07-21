@@ -395,7 +395,7 @@ class HealthPro < ApplicationRecord
 
   def digital_health_consent_to_json
     if self.digital_health_consent.present?
-      @digital_health_consent ||= JSON.parse(health_pro.digital_health_consent.gsub('=>', ':'))
+      @digital_health_consent ||= JSON.parse(self.digital_health_consent.gsub('=>', ':'))
     end
   end
 
