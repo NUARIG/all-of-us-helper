@@ -393,16 +393,16 @@ class HealthPro < ApplicationRecord
     set_digital_health_status_apple_health_ehr_completion_date_d
   end
 
+  def digital_health_consent_to_json
+    if self.digital_health_consent.present?
+      @digital_health_consent ||= JSON.parse(health_pro.digital_health_consent.gsub('=>', ':'))
+    end
+  end
+
   private
     def set_defaults
       if self.new_record? && self.status.blank?
         self.status = HealthPro::STATUS_PENDING
-      end
-    end
-
-    def digital_health_consent_to_json
-      if self.digital_health_consent.present?
-        @digital_health_consent ||= JSON.parse(health_pro.digital_health_consent.gsub('=>', ':'))
       end
     end
 end
