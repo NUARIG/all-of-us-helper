@@ -35,7 +35,8 @@ class HealthPro < ApplicationRecord
   BIOSPECIMEN_LOCATION_NORTHWESTERN = 'hpo-site-nwfeinberggalter'
   BIOSPECIMEN_LOCATION_NORTHWESTERN_DELNOR = 'hpo-site-nwdelnorhospital'
   BIOSPECIMEN_LOCATION_NORTHWESTERN_VERNON_HILLS = 'hpo-site-nwvernonhillsicc'
-  BIOSPECIMEN_LOCATIONS = [BIOSPECIMEN_LOCATION_NORTHWESTERN, BIOSPECIMEN_LOCATION_NORTHWESTERN_DELNOR, BIOSPECIMEN_LOCATION_NORTHWESTERN_VERNON_HILLS]
+  BIOSPECIMEN_LOCATION_NORTHWESTERN_GRAYSLAKE = 'hpo-site-nwmedicinegrayslake'
+  BIOSPECIMEN_LOCATIONS = [BIOSPECIMEN_LOCATION_NORTHWESTERN, BIOSPECIMEN_LOCATION_NORTHWESTERN_DELNOR, BIOSPECIMEN_LOCATION_NORTHWESTERN_VERNON_HILLS, BIOSPECIMEN_LOCATION_NORTHWESTERN_GRAYSLAKE]
 
   PAIRED_ORGANIZATION_NORTHWESTERN = 'ILLINOIS_NORTHWESTERN'
   PAIRED_ORGANIZATION_NEAR_NORTH = 'ILLINOIS_NEAR_NORTH'
@@ -47,7 +48,8 @@ class HealthPro < ApplicationRecord
   PAIRED_SITE_ERIE_FEINBERG_GALTER = 'hpo-site-erienwfeinberggalter'
   PAIRED_SITE_DELNOR_HOSPITAL = 'hpo-site-nwdelnorhospital'
   PAIRED_SITE_VERNON_HILLS_ICC = 'hpo-site-nwvernonhillsicc'
-  PAIRED_SITES = [PAIRED_SITE_NEAR_NORTH_NW_FEINBERG_GALTER, PAIRED_SITE_FEINBERG_GALTER, PAIRED_SITE_ERIE_FEINBERG_GALTER, PAIRED_SITE_DELNOR_HOSPITAL, PAIRED_SITE_VERNON_HILLS_ICC]
+  PAIRED_SITE_GRAYSLAKE = 'hpo-site-nwmedicinegrayslake'
+  PAIRED_SITES = [PAIRED_SITE_NEAR_NORTH_NW_FEINBERG_GALTER, PAIRED_SITE_FEINBERG_GALTER, PAIRED_SITE_ERIE_FEINBERG_GALTER, PAIRED_SITE_DELNOR_HOSPITAL, PAIRED_SITE_VERNON_HILLS_ICC, PAIRED_SITE_GRAYSLAKE]
 
   HEALTH_PRO_CONSENT_STATUS_UNDETERMINED = 'Undetermined'
   HEALTH_PRO_CONSENT_STATUS_DECLINED = 'Declined'
@@ -118,10 +120,77 @@ class HealthPro < ApplicationRecord
 
   after_initialize :set_defaults
 
+  scope :declined, -> do
+    joins("JOIN (SELECT hp2.pmi_id, max(hp2.id) as id
+                 FROM health_pros hp2
+                 WHERE hp2.pmi_id IN(
+                                      SELECT hp3.pmi_id
+                                      FROM health_pros hp3
+                                      WHERE hp3.status = 'declined'
+                                    )
+                 GROUP BY hp2.pmi_id
+                 ) hp4 ON health_pros.pmi_id = hp4.pmi_id AND health_pros.id = hp4.id").where('health_pros.status != ? AND EXISTS (SELECT 1 FROM health_pros hp5 WHERE health_pros.id != hp5.id AND health_pros.pmi_id = hp5.pmi_id AND hp5.status = ?)', HealthPro::STATUS_DECLINED, HealthPro::STATUS_DECLINED)
+  end
+
   scope :by_status, ->(status) do
     if status.present?
      where(status: status)
     end
+  end
+
+  scope :by_paired_organization, ->(paired_organization) do
+    if !['all (not UNSET)','all'].include?(paired_organization)
+      p = where(paired_organization: paired_organization)
+    end
+
+    if paired_organization == 'all (not UNSET)'
+      p = where("paired_organization != 'UNSET'")
+    end
+
+    if p.nil?
+      p =  all
+    end
+    p
+  end
+
+  scope :by_paired_site, ->(paired_site) do
+    if !['all (not UNSET)','all'].include?(paired_site)
+     p = where(paired_site: paired_site)
+    end
+
+    if paired_site == 'all (not UNSET)'
+      p = where("paired_site != 'UNSET'")
+    end
+
+    if p.nil?
+      p =  all
+    end
+    p
+  end
+  scope :by_biospecimens_location, ->(biospecimens_location) do
+    if !['all'].include?(biospecimens_location)
+      p = where('health_pros.biospecimens_location = ?', biospecimens_location)
+    else
+      p =  all
+    end
+
+    p
+  end
+
+  scope :search_across_fields_declined, ->(search_token, options={}) do
+    if search_token
+      search_token.downcase!
+    end
+    options = { sort_column: 'last_name', sort_direction: 'asc' }.merge(options)
+
+    if search_token
+      p = where(["lower(health_pros.pmi_id) like ? OR lower(health_pros.last_name) like ? OR lower(health_pros.first_name) like ? OR lower(health_pros.paired_organization) like ? OR lower(health_pros.paired_site) like ? OR lower(health_pros.biospecimens_location) like ?", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%", "%#{search_token}%"])
+    end
+
+    sort = "health_pros." + options[:sort_column] + ' ' + options[:sort_direction] + ', health_pros.id ASC'
+    p = p.nil? ? order(sort) : p.order(sort)
+
+    p
   end
 
   scope :search_across_fields, ->(search_token, options={}) do
@@ -145,7 +214,8 @@ class HealthPro < ApplicationRecord
   end
 
   def determine_matches
-    if (self.paired_organization == HealthPro::PAIRED_ORGANIZATION_NORTHWESTERN || self.paired_organization.blank? || ([HealthPro::PAIRED_ORGANIZATION_NEAR_NORTH, HealthPro::PAIRED_ORGANIZATION_ILLINOIS_ERIE].include?(self.paired_organization) && (self.paired_site.blank? || HealthPro::PAIRED_SITES.include?(self.paired_site)))) && HealthPro.previously_declined(self.pmi_id, self.batch_health_pro_id).count == 0
+    # if (self.paired_organization == HealthPro::PAIRED_ORGANIZATION_NORTHWESTERN || self.paired_organization.blank? || ([HealthPro::PAIRED_ORGANIZATION_NEAR_NORTH, HealthPro::PAIRED_ORGANIZATION_ILLINOIS_ERIE].include?(self.paired_organization) && (self.paired_site.blank? || HealthPro::PAIRED_SITES.include?(self.paired_site)))) && HealthPro.previously_declined(self.pmi_id, self.batch_health_pro_id).count == 0
+    if (self.paired_organization == HealthPro::PAIRED_ORGANIZATION_NORTHWESTERN || self.paired_organization == 'UNSET' || ([HealthPro::PAIRED_ORGANIZATION_NEAR_NORTH, HealthPro::PAIRED_ORGANIZATION_ILLINOIS_ERIE].include?(self.paired_organization) && (self.paired_site == 'UNSET' || HealthPro::PAIRED_SITES.include?(self.paired_site)))) && HealthPro.previously_declined(self.pmi_id, self.batch_health_pro_id).count == 0
       matched_pmi_patients = Patient.not_deleted.where(pmi_id: self.pmi_id)
       matched_demographic_patients = Patient.not_deleted.no_previously_declined_match.by_matchable_criteria(self.first_name, self.last_name)
 
@@ -235,6 +305,97 @@ class HealthPro < ApplicationRecord
       mapped
     else
       Patient::GENDER_UNKNOWN_OR_NOT_REPORTED
+    end
+  end
+
+  def latest_paired_organization
+    last_health_pro.paired_organization
+  end
+
+  def latest_paired_site
+    last_health_pro.paired_site
+  end
+
+  def latest_biospecimens_location
+    last_health_pro.biospecimens_location
+  end
+
+  def last_health_pro
+    @last_health_pro ||= HealthPro.find(HealthPro.where(pmi_id: self.pmi_id).maximum(:id))
+  end
+
+  def undecline!
+    health_pro = HealthPro.where('pmi_id = ? AND status = ?', self.pmi_id, HealthPro::STATUS_DECLINED).first
+    health_pro.status = HealthPro::STATUS_MATCHABLE
+    health_pro.save
+  end
+
+  def set_digital_health_status_fitbit_complete_y
+    if digital_health_consent.present?
+      if self.digital_health_consent_to_json['fitbit']
+        self.digital_health_status_fitbit_complete_y = self.digital_health_consent_to_json['fitbit']['status']
+      end
+    end
+  end
+
+  def set_digital_health_status_fitbit_completion_date_d
+    if digital_health_consent.present?
+      if self.digital_health_consent_to_json['fitbit']
+        if self.digital_health_consent_to_json['fitbit']['authoredTime'].present?
+          self.digital_health_status_fitbit_completion_date_d = Date.parse(self.digital_health_consent_to_json['fitbit']['authoredTime']).to_s
+        end
+      end
+    end
+  end
+
+  def set_digital_health_status_apple_health_kit_complete_y
+    if digital_health_consent.present?
+      if self.digital_health_consent_to_json['appleHealthKit']
+        self.digital_health_status_apple_health_kit_complete_y = self.digital_health_consent_to_json['appleHealthKit']['status']
+      end
+    end
+  end
+
+  def set_digital_health_status_apple_health_kit_completion_date_d
+    if digital_health_consent.present?
+      if self.digital_health_consent_to_json['appleHealthKit']
+        if self.digital_health_consent_to_json['appleHealthKit']['authoredTime'].present?
+          self.digital_health_status_apple_health_kit_completion_date_d = Date.parse(self.digital_health_consent_to_json['appleHealthKit']['authoredTime'])
+        end
+      end
+    end
+  end
+
+  def set_digital_health_status_apple_health_ehr_complete_y
+    if digital_health_consent.present?
+      if self.digital_health_consent_to_json['appleEHR']
+        self.digital_health_status_apple_health_ehr_complete_y = self.digital_health_consent_to_json['appleEHR']['status']
+      end
+    end
+  end
+
+  def set_digital_health_status_apple_health_ehr_completion_date_d
+    if digital_health_consent.present?
+      if self.digital_health_consent_to_json['appleEHR']
+        if self.digital_health_consent_to_json['appleEHR']['authoredTime'].present?
+          self.digital_health_status_apple_health_ehr_completion_date_d = Date.parse(self.digital_health_consent_to_json['appleEHR']['authoredTime'])
+        end
+      end
+    end
+  end
+
+  def set_digital_health_fields
+    set_digital_health_status_fitbit_complete_y
+    set_digital_health_status_fitbit_completion_date_d
+    set_digital_health_status_apple_health_kit_complete_y
+    set_digital_health_status_apple_health_kit_completion_date_d
+    set_digital_health_status_apple_health_ehr_complete_y
+    set_digital_health_status_apple_health_ehr_completion_date_d
+  end
+
+  def digital_health_consent_to_json
+    if self.digital_health_consent.present?
+      @digital_health_consent ||= JSON.parse(self.digital_health_consent.gsub('=>', ':'))
     end
   end
 

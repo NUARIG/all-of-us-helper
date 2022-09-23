@@ -169,7 +169,7 @@ class Patient < ApplicationRecord
   end
 
   def ready?
-    self.accepted_match && self.general_consent_status_ready? && self.ehr_consent_status_ready? && self.withdrawal_status_display.blank? && HealthPro::BIOSPECIMEN_LOCATIONS.include?(self.biospecimens_location) && self.participant_status == HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT
+    self.accepted_match && self.general_consent_status_ready? && self.ehr_consent_status_ready? && self.withdrawal_status_display.blank? && (HealthPro::BIOSPECIMEN_LOCATIONS.include?(self.biospecimens_location) || self.biospecimens_location == 'UNSET') && self.participant_status == HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT
   end
 
   def set_registration_status
@@ -241,63 +241,54 @@ class Patient < ApplicationRecord
   end
 
   def health_pro_race_ethnicity
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.race_ethnicity
     end
   end
 
   def health_pro_sex
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.sex
     end
   end
 
   def health_pro_address1
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.street_address
     end
   end
 
   def health_pro_address2
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.street_address2
     end
   end
 
   def health_pro_city
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.city
     end
   end
 
   def health_pro_state
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.state
     end
   end
 
   def health_pro_zip
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.zip
     end
   end
 
   def wq_program_update_status
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.program_update
     end
   end
 
   def wq_program_update_date
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.date_of_program_update
     end
@@ -411,13 +402,187 @@ class Patient < ApplicationRecord
   end
 
   def deceased
-    health_pro = HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
     if health_pro.present?
       health_pro.deceased
     end
   end
 
+  def cope_feb_ppi_survey_complete_y
+    if health_pro.present?
+      health_pro.cope_feb_ppi_survey_complete
+    end
+  end
+
+  def cope_feb_ppi_survey_completion_date_d
+    if health_pro.present?
+      health_pro.cope_feb_ppi_survey_completion_date
+    end
+  end
+
+  def core_participant_minus_pm_date_d
+    if health_pro.present?
+      health_pro.core_participant_minus_pm_date
+    end
+  end
+
+  def summer_minute_ppi_survey_complete_y
+    if health_pro.present?
+      health_pro.summer_minute_ppi_survey_complete
+    end
+  end
+
+  def summer_minute_ppi_survey_completion_date_d
+    if health_pro.present?
+      health_pro.summer_minute_ppi_survey_completion_date
+    end
+  end
+
+  def fall_minute_ppi_survey_complete_y
+    if health_pro.present?
+      health_pro.fall_minute_ppi_survey_complete
+    end
+  end
+
+  def fall_minute_ppi_survey_completion_date_d
+    if health_pro.present?
+      health_pro.fall_minute_ppi_survey_completion_date
+    end
+  end
+
+  def personal_and_family_hx_ppi_survey_complete_y
+    if health_pro.present?
+      health_pro.personal_and_family_hx_ppi_survey_complete
+    end
+  end
+
+  def personal_and_family_hx_ppi_survey_completion_date_d
+    if health_pro.present?
+      health_pro.personal_and_family_hx_ppi_survey_completion_date
+    end
+  end
+
+  def sdoh_ppi_survey_complete_y
+    if health_pro.present?
+      health_pro.sdoh_ppi_survey_complete
+    end
+  end
+
+  def sdoh_ppi_survey_completion_date_d
+    if health_pro.present?
+      health_pro.sdoh_ppi_survey_completion_date
+    end
+  end
+
+  def winter_minute_ppi_survey_complete_y
+    if health_pro.present?
+      health_pro.winter_minute_ppi_survey_complete
+    end
+  end
+
+  def winter_minute_ppi_survey_completion_date_d
+    if health_pro.present?
+      health_pro.winter_minute_ppi_survey_completion_date
+    end
+  end
+
+  def digital_health_status_fitbit_complete_y
+    if health_pro.present?
+      if digital_health_consent.present?
+        if digital_health_consent['fitbit']
+          case digital_health_consent['fitbit']['status']
+          when 'NO'
+            '0'
+          when 'YES'
+            '1'
+          else
+            nil
+          end
+        end
+      end
+    end
+  end
+
+  def digital_health_status_fitbit_completion_date_d
+    if health_pro.present?
+      if digital_health_consent.present?
+        if digital_health_consent['fitbit']
+          if digital_health_consent['fitbit']['authoredTime'].present?
+            Date.parse(digital_health_consent['fitbit']['authoredTime'])
+          end
+        end
+      end
+    end
+  end
+
+  def digital_health_status_apple_health_kit_complete_y
+    if health_pro.present?
+      if digital_health_consent.present?
+        if digital_health_consent['appleHealthKit']
+          case digital_health_consent['appleHealthKit']['status']
+          when 'NO'
+            '0'
+          when 'YES'
+            '1'
+          else
+            nil
+          end
+        end
+      end
+    end
+  end
+
+  def digital_health_status_apple_health_kit_completion_date_d
+    if health_pro.present?
+      if digital_health_consent.present?
+        if digital_health_consent['appleHealthKit']
+          if digital_health_consent['appleHealthKit']['authoredTime'].present?
+            Date.parse(digital_health_consent['appleHealthKit']['authoredTime'])
+          end
+        end
+      end
+    end
+  end
+
+  def digital_health_status_apple_health_ehr_complete_y
+    if health_pro.present?
+      if digital_health_consent.present?
+        if digital_health_consent['appleEHR']
+          case digital_health_consent['appleEHR']['status']
+          when 'NO'
+            '0'
+          when 'YES'
+            '1'
+          else
+            nil
+          end
+        end
+      end
+    end
+  end
+
+  def digital_health_status_apple_health_ehr_completion_date_d
+    if health_pro.present?
+      if digital_health_consent.present?
+        if digital_health_consent['appleEHR']
+          if digital_health_consent['appleEHR']['authoredTime'].present?
+            Date.parse(digital_health_consent['appleEHR']['authoredTime'])
+          end
+        end
+      end
+    end
+  end
+
   private
+    def health_pro
+      @health_pro ||= HealthPro.where(batch_health_pro_id: last_batch_health_pro_id, pmi_id: self.pmi_id).first
+    end
+
+    def digital_health_consent
+      if health_pro.digital_health_consent.present?
+        @digital_health_consent ||= JSON.parse(health_pro.digital_health_consent.gsub('=>', ':'))
+      end
+    end
+
     def last_batch_health_pro_id
       last_batch_health_pro_id = HealthPro.where(pmi_id: self.pmi_id).maximum(:batch_health_pro_id)
     end

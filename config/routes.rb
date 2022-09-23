@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   get '/patients/record_id/:record_id', to: 'patients#record_id', as: 'record_id'
 
+  resources :declined_patients, only: [:index, :update]
   resources :batch_health_pros, only: [:index, :new, :create, :show]
   resources :batch_invitation_codes, only: [:new, :create]
   resources :health_pros, only: :update

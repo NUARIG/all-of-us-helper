@@ -1,18 +1,14 @@
-#patients-header {
+#declined-patients-header {
   @include grid-column-row();
-  #search-patients-form {
+  #search-declined-patients-form {
     @include grid-column($columns: 24);
 
     @include breakpoint(large) {
       h1 {
-        @include grid-column($columns: 6);
+        @include grid-column($columns: 10);
       }
 
-      .registration_status {
-        @include grid-column($columns: 4);
-      }
-
-      .paired_site {
+      .biospecimens_location {
         @include grid-column($columns: 4);
       }
 
@@ -27,17 +23,17 @@
 
     .search-buttons{
       margin-top: 1.5rem;
-      #search-patients-button {
+      #search-declined-patients-button {
         margin-top: .50rem;
       }
     }
   }
 }
 
-#patients {
+#declined-patients {
   margin-top: 1rem;
   @include grid-row();
-  #patients-list {
+  #declined-patients-list {
 		@include grid-column($columns: 24);
 
     table {
@@ -66,35 +62,5 @@
     table {
       @include grid-column($columns: 24);
     }
-  }
-}
-
-#patient-show {
-  @include grid-column-row();
-
-  .patient_features {
-    input, label {
-      display: inline;
-    }
-  }
-  .field {
-    margin-bottom: 1rem;
-  }
-  #invitation-code-assignment-form {
-    display: inline;
-  }
-
-  #patient-form {
-    label {
-      font-weight: bold;
-    }
-  }
-
-  #patient-form {
-    display: inline;
-  }
-
-  #register-patient-form {
-    display: inline;
   }
 }

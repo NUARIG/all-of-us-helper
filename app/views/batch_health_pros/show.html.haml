@@ -12,6 +12,14 @@
           %label{for: 'status' }
             Status
           = select_tag :status, options_for_select(HealthPro::STATUSES.map { |status| [status, status] }, (params[:status].blank? ? '' : params[:status])), { include_blank: 'all' }
+        .paired_organization
+          %label{for: 'paired_organization' }
+            Paired Organization
+          = select_tag :paired_organization, options_for_select(['all', 'UNSET', 'all (not UNSET)'].concat(HealthPro::PAIRED_ORGANIZATIONS).map { |paired_organization| [paired_organization, paired_organization] }, params[:paired_organization])
+        .paired_site
+          %label{for: 'paired_site' }
+            Paired Site
+          = select_tag :paired_site, options_for_select(['all', 'UNSET', 'all (not UNSET)'].concat(HealthPro::PAIRED_SITES).map { |paired_site| [paired_site, paired_site] }, params[:paired_site])
         .search-box
           %label{for: 'search' }
             Search
@@ -21,10 +29,10 @@
             Search
           = link_to 'Clear', batch_health_pro_url(@batch_health_pro)
 - content_for(:all_of_us_helper_content) do
-  #all-of-us-helper-content    
+  #all-of-us-helper-content
     #show-batch-health-pro
       = render 'shared/flash'
-      #show-batch-health-pro-list          
+      #show-batch-health-pro-list
         = will_paginate @health_pros, renderer: FoundationPagination::Rails
         %table.hack_stack.hover
           %thead

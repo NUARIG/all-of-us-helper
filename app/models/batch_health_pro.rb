@@ -81,6 +81,7 @@ class BatchHealthPro < ApplicationRecord
           end
           convert_dates(row)
           health_pros.build(row)
+          health_pros.last.set_digital_health_fields
         end
 
         if token && batch_size == 1000
@@ -450,7 +451,10 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnSocialDeterminantsOfHealth' => 'sdoh_ppi_survey_complete',
       'questionnaireOnSocialDeterminantsOfHealthAuthored' => 'sdoh_ppi_survey_completion_date',
       'questionnaireOnCopeVaccineMinute3' => 'winter_minute_ppi_survey_complete',
-      'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date'
+      'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date',
+      'enrollmentSite' => 'enrollment_site',
+      'questionnaireOnCopeVaccineMinute4' =>'new_year_minute_ppi_survey_complete',
+      'questionnaireOnCopeVaccineMinute4Authored' => 'new_year_minute_ppi_survey_completion_date'
     }
   end
 

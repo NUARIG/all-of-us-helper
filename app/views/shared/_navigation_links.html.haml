@@ -4,6 +4,8 @@
   = link_to 'Patients', patients_url
 %li.batch_health_pros.menu-text{ class: active?('active', controller: '/batch_health_pros', action: 'index') }
   = link_to 'Health Pros', batch_health_pros_url()
+%li.declined_patients.menu-text{ class: active?('active', controller: '/declined_patients', action: 'index') }
+  = link_to 'Declined Patients', declined_patients_url()
 %li.settings.menu-text{ class: active?('active', controller: '/settings', action: 'edit' ) }
   = link_to 'Settings', edit_settings_url()
 - if user_signed_in?
