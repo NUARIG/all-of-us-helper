@@ -235,7 +235,7 @@ class Patient < ApplicationRecord
   def withdrawal_status_display
     if self.withdrawal_status == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NOT_WITHDRAWN && self.withdrawal_date.blank?
       nil
-    elsif self.withdrawal_status == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE  && self.withdrawal_date.present?
+    elsif self.withdrawal_status == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE #  && self.withdrawal_date.present?
       HealthPro::HEALTH_PRO_CONSENT_STATUS_WITHDRAWN
     end
   end
