@@ -2,7 +2,7 @@ require 'csv'
 namespace :ehr531 do
   desc 'Compare HealthPro to StudyTracker'
   task(compare_healthpro_to_study_tracker: :environment) do  |t, args|
-    batch_health_pro_ids = [batch_health_pro_ids = [BatchHealthPro.maximum(:id)]
+    batch_health_pro_ids =[BatchHealthPro.maximum(:id)]
     subjects = []
     subject_template = { source: nil, pmi_id: nil, biospecimens_location: nil, general_consent_status: nil, general_consent_date: nil, general_consent_status_st: nil, general_consent_date_st: nil,  ehr_consent_status: nil, ehr_consent_date: nil, ehr_consent_status_st: nil, ehr_consent_date_st: nil, withdrawal_status: nil, withdrawal_date: nil, withdrawal_status_st: nil, withdrawal_date_st: nil, nmhc_mrn: nil, status: nil, participant_status: nil }
     st_subjects = CSV.new(File.open('lib/setup/data/STU00204480_subjects.csv'), headers: true, col_sep: ",", return_headers: false,  quote_char: "\"")
