@@ -67,11 +67,18 @@ namespace :ehr531 do
         subject[:withdrawal_status_st] = '0'
       end
 
-      if subject[:general_consent_status] == subject[:general_consent_status_st] &&
+      # if subject[:general_consent_status] == subject[:general_consent_status_st] &&
+      #    subject[:general_consent_date] == subject[:general_consent_date_st] &&
+      #    subject[:ehr_consent_status] == subject[:ehr_consent_status_st] &&
+      #    subject[:ehr_consent_date] == subject[:ehr_consent_date_st] &&
+      #    subject[:withdrawal_status] == subject[:withdrawal_status_st] &&
+      #    subject[:withdrawal_date] == subject[:withdrawal_date_st]
+
+      if match_status_general_ehr(subject[:general_consent_status], subject[:general_consent_date], subject[:general_consent_status_st], subject[:general_consent_date_st]) &&
          subject[:general_consent_date] == subject[:general_consent_date_st] &&
-         subject[:ehr_consent_status] == subject[:ehr_consent_status_st] &&
+         match_status_general_ehr(subject[:ehr_consent_status], subject[:ehr_consent_date], subject[:ehr_consent_status_st], subject[:ehr_consent_date_st]) &&
          subject[:ehr_consent_date] == subject[:ehr_consent_date_st] &&
-         subject[:withdrawal_status] == subject[:withdrawal_status_st] &&
+         match_status_withdrawal(subject[:withdrawal_status], subject[:withdrawal_date],subject[:withdrawal_status_st], subject[:withdrawal_date_st]) &&
          subject[:withdrawal_date] == subject[:withdrawal_date_st]
 
          subject[:status] = 'matches'
