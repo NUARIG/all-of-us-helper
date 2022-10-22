@@ -30,39 +30,39 @@ namespace :ehr531 do
       subject[:general_consent_date] = Date.parse(health_pro.general_consent_date) if health_pro.general_consent_date.present?
 
       study_tracker_activities_by_case_number.each do |study_tracker_activity|
-        puts 'name'
-        puts study_tracker_activity.to_hash['name']
-        puts 'date'
-        puts study_tracker_activity.to_hash['date']
+        puts 'activity_name'
+        puts study_tracker_activity.to_hash['activity_name']
+        puts 'activity_date'
+        puts study_tracker_activity.to_hash['activity_date']
         puts 'activity_state'
         puts study_tracker_activity.to_hash['activity_state']
       end
 
-      study_tracker_activity_consented = study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['name'] == 'Consented' && study_tracker_activity.to_hash['date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.max_by { |study_tracker_activity| Date.parse(study_tracker_activity.to_hash['date']) }
+      study_tracker_activity_consented = study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['activity_name'] == 'Consented' && study_tracker_activity.to_hash['activity_date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.max_by { |study_tracker_activity| Date.parse(study_tracker_activity.to_hash['activity_date']) }
       if study_tracker_activity_consented
         subject[:nmhc_mrn] = study_tracker_activity_consented.to_hash['nmhc_record_number']
         subject[:general_consent_status_st] = '1'
-        subject[:general_consent_date_st] = Date.parse(study_tracker_activity_consented.to_hash['date'])
+        subject[:general_consent_date_st] = Date.parse(study_tracker_activity_consented.to_hash['activity_date'])
       else
         subject[:general_consent_status_st] = '0'
       end
 
       subject[:ehr_consent_status] = health_pro.ehr_consent_status
       subject[:ehr_consent_date] = Date.parse(health_pro.ehr_consent_date) if health_pro.ehr_consent_date
-      study_tracker_activity_ehr_consent = study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['name'] == 'EHR Consent' && study_tracker_activity.to_hash['date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.max_by { |study_tracker_activity| Date.parse(study_tracker_activity.to_hash['date']) }
+      study_tracker_activity_ehr_consent = study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['activity_name'] == 'EHR Consent' && study_tracker_activity.to_hash['activity_date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.max_by { |study_tracker_activity| Date.parse(study_tracker_activity.to_hash['activity_date']) }
       if study_tracker_activity_ehr_consent
         subject[:ehr_consent_status_st] = '1'
-        subject[:ehr_consent_date_st] = Date.parse(study_tracker_activity_ehr_consent.to_hash['date'])
+        subject[:ehr_consent_date_st] = Date.parse(study_tracker_activity_ehr_consent.to_hash['activity_date'])
       else
         subject[:ehr_consent_status_st] = '0'
       end
 
       subject[:withdrawal_status] = health_pro.withdrawal_status
       subject[:withdrawal_date] = Date.parse(health_pro.withdrawal_date) if health_pro.withdrawal_date
-      study_tracker_activity_withdrawal = study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['name'] == 'Withdrawn' && study_tracker_activity.to_hash['date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.first
+      study_tracker_activity_withdrawal = study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['activity_name'] == 'Withdrawn' && study_tracker_activity.to_hash['activity_date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.first
       if study_tracker_activity_withdrawal
         subject[:withdrawal_status_st] = '1'
-        subject[:withdrawal_date_st] = Date.parse(study_tracker_activity_withdrawal.to_hash['date']) if study_tracker_activity_withdrawal.to_hash['date']
+        subject[:withdrawal_date_st] = Date.parse(study_tracker_activity_withdrawal.to_hash['activity_date']) if study_tracker_activity_withdrawal.to_hash['activity_date']
       else
         subject[:withdrawal_status_st] = '0'
       end
@@ -142,31 +142,31 @@ namespace :ehr531 do
 
       subject[:general_consent_status] = health_pro.general_consent_status if health_pro
       subject[:general_consent_date] = Date.parse(health_pro.general_consent_date) if health_pro && health_pro.general_consent_date
-      study_tracker_activity_consented = case_number_study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['name'] == 'Consented' && study_tracker_activity.to_hash['date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.first
+      study_tracker_activity_consented = case_number_study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['activity_name'] == 'Consented' && study_tracker_activity.to_hash['activity_date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.first
       if study_tracker_activity_consented
         subject[:nmhc_mrn] = study_tracker_activity_consented.to_hash['nmhc_record_number']
         subject[:general_consent_status_st] = '1'
-        subject[:general_consent_date_st] = Date.parse(study_tracker_activity_consented.to_hash['date']) if study_tracker_activity_consented.to_hash['date']
+        subject[:general_consent_date_st] = Date.parse(study_tracker_activity_consented.to_hash['activity_date']) if study_tracker_activity_consented.to_hash['activity_date']
       else
         subject[:general_consent_status_st] = '0'
       end
 
       subject[:ehr_consent_status] = health_pro.ehr_consent_status if health_pro
       subject[:ehr_consent_date] = Date.parse(health_pro.ehr_consent_date) if health_pro && health_pro.ehr_consent_date
-      study_tracker_activity_ehr_consent = case_number_study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['name'] == 'EHR Consent' && study_tracker_activity.to_hash['date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.first
+      study_tracker_activity_ehr_consent = case_number_study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['activity_name'] == 'EHR Consent' && study_tracker_activity.to_hash['activity_date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.first
       if study_tracker_activity_ehr_consent
         subject[:ehr_consent_status_st] = '1'
-        subject[:ehr_consent_date_st] = Date.parse(study_tracker_activity_ehr_consent.to_hash['date']) if study_tracker_activity_ehr_consent.to_hash['date']
+        subject[:ehr_consent_date_st] = Date.parse(study_tracker_activity_ehr_consent.to_hash['activity_date']) if study_tracker_activity_ehr_consent.to_hash['activity_date']
       else
         subject[:ehr_consent_status_st] = '0'
       end
 
       subject[:withdrawal_status] = health_pro.withdrawal_status if health_pro
       subject[:withdrawal_date] = Date.parse(health_pro.withdrawal_date) if health_pro && health_pro.withdrawal_date
-      study_tracker_activity_withdrawal = case_number_study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['name'] == 'Withdrawn' && study_tracker_activity.to_hash['date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.first
+      study_tracker_activity_withdrawal = case_number_study_tracker_activities_by_case_number.select { |study_tracker_activity| study_tracker_activity.to_hash['activity_name'] == 'Withdrawn' && study_tracker_activity.to_hash['activity_date'].present? &&  study_tracker_activity.to_hash['activity_state'] == 'completed' }.first
       if study_tracker_activity_withdrawal
         subject[:withdrawal_status_st] = '1'
-        subject[:withdrawal_date_st] = Date.parse(study_tracker_activity_withdrawal.to_hash['date']) if study_tracker_activity_withdrawal.to_hash['date']
+        subject[:withdrawal_date_st] = Date.parse(study_tracker_activity_withdrawal.to_hash['activity_date']) if study_tracker_activity_withdrawal.to_hash['activity_date']
       else
         subject[:withdrawal_status_st] = '0'
       end
