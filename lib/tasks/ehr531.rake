@@ -105,9 +105,9 @@ namespace :ehr531 do
 
          puts 'end'
 
-         if match_status(subject[:general_consent_status], subject[:general_consent_date], subject[:general_consent_status_st], subject[:general_consent_date_st]) &&
-            match_status(subject[:ehr_consent_status], subject[:ehr_consent_date], subject[:ehr_consent_status_st], subject[:ehr_consent_date_st]) &&
-            match_status(subject[:withdrawal_status], subject[:withdrawal_date],subject[:withdrawal_status_st], subject[:withdrawal_date_st])
+         if match_status_general_ehr(subject[:general_consent_status], subject[:general_consent_date], subject[:general_consent_status_st], subject[:general_consent_date_st]) &&
+            match_status_general_ehr(subject[:ehr_consent_status], subject[:ehr_consent_date], subject[:ehr_consent_status_st], subject[:ehr_consent_date_st]) &&
+            match_status_withdrawal(subject[:withdrawal_status], subject[:withdrawal_date],subject[:withdrawal_status_st], subject[:withdrawal_date_st])
 
             subject[:status] = 'matches'
           else
@@ -164,9 +164,9 @@ namespace :ehr531 do
         subject[:withdrawal_status_st] = '0'
       end
 
-      if match_status(subject[:general_consent_status], subject[:general_consent_date], subject[:general_consent_status_st], subject[:general_consent_date_st]) &&
-         match_status(subject[:ehr_consent_status], subject[:ehr_consent_date], subject[:ehr_consent_status_st], subject[:ehr_consent_date_st]) &&
-         match_status(subject[:withdrawal_status], subject[:withdrawal_date] , subject[:withdrawal_status_st], subject[:withdrawal_date_st])
+      if match_status_general_ehr(subject[:general_consent_status], subject[:general_consent_date], subject[:general_consent_status_st], subject[:general_consent_date_st]) &&
+         match_status_general_ehr(subject[:ehr_consent_status], subject[:ehr_consent_date], subject[:ehr_consent_status_st], subject[:ehr_consent_date_st]) &&
+         match_status_withdrawal(subject[:withdrawal_status], subject[:withdrawal_date] , subject[:withdrawal_status_st], subject[:withdrawal_date_st])
          subject[:status] = 'matches'
        else
          subject[:status] = 'mismatches'
@@ -210,14 +210,52 @@ namespace :ehr531 do
   end
 end
 
-def match_status(status, date, status_st, date_st)
+def match_status_general_ehr(status, date, status_st, date_st)
+  status_normalized = nil
+  if status == 'SUBMITTED'
+    status_normalized = '1'
+  else
+    status_normalized = '0'
+  end
+
   match = false
-  if status == status_st && status == '1' && date == date_st
+  if status_normalized == status_st && status_normalized == '1' && date == date_st
     match = true
-  elsif status == status_st && status == '1' && date != date_st
+  elsif status_normalized == status_st && status_normalized == '1' && date != date_st
     match = false
-  elsif status == status_st && status == '0'
+  elsif status_normalized == status_st && status_normalized == '0'
     match = true
   end
   match
 end
+
+def match_status_withdrawal(status, date, status_st, date_st)
+  status_normalized = nil
+  if status == 'NO_USE'
+    status_normalized = '1'
+  else
+    status_normalized = '0'
+  end
+
+  match = false
+  if status_normalized == status_st && status_normalized == '1' && date == date_st
+    match = true
+  elsif status_normalized == status_st && status_normalized == '1' && date != date_st
+    match = false
+  elsif status_normalized == status_st && status_normalized == '0'
+    match = true
+  end
+  match
+end
+
+# def match_status(status, date, status_st, date_st)
+#   match = false
+#   if status == status_st && status == '1' && date == date_st
+#     match = true
+#   elsif status == status_st && status == '1' && date != date_st
+#     match = false
+#   elsif status == status_st && status == '0'
+#     match = true
+#   end
+#   match
+# end
