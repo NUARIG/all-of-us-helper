@@ -23,6 +23,7 @@ production:
 support:
   recipients:
     - m-gurley@northwestern.edu
+    - y-bushmanova@northwestern.edu
   sender_address: all-of-us-helper@northwestern.edu
 redcap:
   development:
