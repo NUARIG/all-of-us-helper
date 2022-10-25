@@ -156,7 +156,7 @@ class BatchHealthPro < ApplicationRecord
       matched_pmi_patient.ehr_consent_status = health_pro.ehr_consent_status
       matched_pmi_patient.ehr_consent_date = health_pro.ehr_consent_date
       matched_pmi_patient.withdrawal_status = health_pro.withdrawal_status
-      matched_pmi_patient.withdrawal_date = health_pro.withdrawal_date if matched_pmi_patient.blank?
+      matched_pmi_patient.withdrawal_date = health_pro.withdrawal_date
       matched_pmi_patient.biospecimens_location = health_pro.biospecimens_location
       matched_pmi_patient.participant_status = health_pro.participant_status
       matched_pmi_patient.physical_measurements_completion_date = health_pro.physical_measurements_completion_date
