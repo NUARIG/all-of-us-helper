@@ -80,6 +80,9 @@ class BatchHealthPro < ApplicationRecord
           BatchHealthPro.api_headers_map.each_pair do |k,v|
             row[v.to_sym] = health_pro_from_api.to_hash[k.to_s]
           end
+          if health_pro_from_api.to_hash['withdrawalAuthored'].blank?  && !health_pro_from_api.to_hash['withdrawalTime'].blank?
+            row[:withdrawal_date] = health_pro_from_api.to_hash['withdrawalTime']
+          end
           Rails.logger.info '[HealthPro Import API] mapped API headers'
           convert_dates(row)
           Rails.logger.info '[HealthPro Import API] converted dates'
