@@ -60,76 +60,96 @@ class BatchHealthPro < ApplicationRecord
       health_pro_api = HealthProApi.new
       response = health_pro_api.participant_summary(options)
 
-      puts response[:response]
+      # puts response[:response]
+      Rails.logger.info '[HealthPro Import API] got response'
       if response[:response]['link'].present?
         link = response[:response]['link']
         if link && link.first['relation'] == 'next'
-          url =  link.first['url']
+          url = link.first['url']
           token = url.partition('token=').last
         end
       end
 
       more = true
       batch_size = response[:response]['entry'].size
-      while more do
-        puts 'Hello Booch!'
+      while more
+        Rails.logger.info '[HealthPro Import API] processing more entries'
         response[:response]['entry'].each do |health_pro_from_api|
           health_pro_from_api = health_pro_from_api['resource']
-          row ={}
+          row = {}
           BatchHealthPro.api_headers_map.each_pair do |k,v|
             row[v.to_sym] = health_pro_from_api.to_hash[k.to_s]
           end
+          Rails.logger.info '[HealthPro Import API] mapped API headers'
           convert_dates(row)
+          Rails.logger.info '[HealthPro Import API] converted dates'
           health_pros.build(row)
+          Rails.logger.info '[HealthPro Import API] built health_pros from row'
           health_pros.last.set_digital_health_fields
+          Rails.logger.info '[HealthPro Import API] set digital health fields'
         end
 
+        Rails.logger.info "[HealthPro Import API] renewing token? token: #{token} batch_size: #{batch_size}"
         if token && batch_size == 1000
+          Rails.logger.info '[HealthPro Import API] renewing token?'
           participant_summary_options = { _token: token }
           response = health_pro_api.participant_summary(participant_summary_options)
           if response
+            Rails.logger.info '[HealthPro Import API] got response'
             link = response[:response]['link']
             batch_size = response[:response]['entry'].size
             if link.present?
-              url =  link.first['url']
+              Rails.logger.info '[HealthPro Import API] got link'
+              url = link.first['url']
               tokenNew = url.partition('token=').last
 
               if token != tokenNew
+                Rails.logger.info '[HealthPro Import API] tokens do not match, assigning new'
                 token = tokenNew
               else
+                Rails.logger.info '[HealthPro Import API] tokens match, nullifying'
                 token = nil
               end
             end
           end
         else
+          Rails.logger.info '[HealthPro Import API] no more'
           more = false
         end
       end
 
       save!
+      Rails.logger.info '[HealthPro Import API] batch_health_pro saved'
 
+      Rails.logger.info '[HealthPro Import API] processing health_pros'
       health_pros.where("((paired_organization = 'UNSET' OR paired_organization IN (?)) OR (paired_organization IN (?) AND (paired_site = 'UNSET' OR paired_site IN(?))))", [HealthPro::PAIRED_ORGANIZATION_NORTHWESTERN], [HealthPro::PAIRED_ORGANIZATION_NEAR_NORTH, HealthPro::PAIRED_ORGANIZATION_ILLINOIS_ERIE], HealthPro::PAIRED_SITES).each do |health_pro|
-        puts 'made it here'
         health_pro.determine_matches
+        Rails.logger.info '[HealthPro Import API] determined matches'
 
         if health_pro.matchable?
+          Rails.logger.info '[HealthPro Import API] health_pro is matchable'
           health_pro.determine_empi_matches
+          Rails.logger.info '[HealthPro Import API] determined empi_matches'
           health_pro.determine_duplicates
+          Rails.logger.info '[HealthPro Import API] determined duplicates'
         end
 
         health_pro.save!
-        puts 'what you got'
-        puts options[:update_previously_matched]
+        Rails.logger.info '[HealthPro Import API] saved'
+        Rails.logger.info "[HealthPro Import API] update_previously_matched: #{options[:update_previously_matched]}"
         if options[:update_previously_matched]
-          puts 'update_previously_matched_patient'
           update_previously_matched_patient(health_pro, options)
+          Rails.logger.info '[HealthPro Import API] updated previously matched patient'
         end
       end
+      Rails.logger.info '[HealthPro Import API] done processing health_pros'
 
       self.status = BatchHealthPro::STATUS_READY
       save!
+      Rails.logger.info "[HealthPro Import API] batch_health_pro status set to #{BatchHealthPro::STATUS_READY}"
+
     rescue Exception => e
-      puts 'Booch we have a problem!'
+      Rails.logger.info '[HealthPro Import API] Booch we have a problem!'
       ExceptionNotifier.notify_exception(e)
       set_status_to_error
       Rails.logger.info(e.class)
@@ -218,7 +238,7 @@ class BatchHealthPro < ApplicationRecord
       if errors.empty?
         # BatchHealthPro.transaction do
           health_pros_from_file.each do |health_pro_from_file|
-            row ={}
+            row = {}
             BatchHealthPro.headers_map.each_pair do |k,v|
               row[v.to_sym] = health_pro_from_file.to_hash[k.to_s]
             end
@@ -394,7 +414,7 @@ class BatchHealthPro < ApplicationRecord
       'sampleStatus1UR10' => 'urine_10_ml_collected',
       'sampleStatus1UR10Time' => 'urine_10_ml_collection_date',
       'sampleStatus1UR90' => 'urine_90_ml_collected',
-      'sampleStatus1UR90Time'  => 'urine_90_ml_collection_date',
+      'sampleStatus1UR90Time' => 'urine_90_ml_collection_date',
       'sampleStatus1SAL' => 'saliva_collected',
       'sampleStatus1SALTime' => 'saliva_collection_date',
       # 'Biospecimens Location' => 'biospecimens_location'
@@ -453,7 +473,7 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnCopeVaccineMinute3' => 'winter_minute_ppi_survey_complete',
       'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date',
       'enrollmentSite' => 'enrollment_site',
-      'questionnaireOnCopeVaccineMinute4' =>'new_year_minute_ppi_survey_complete',
+      'questionnaireOnCopeVaccineMinute4' => 'new_year_minute_ppi_survey_complete',
       'questionnaireOnCopeVaccineMinute4Authored' => 'new_year_minute_ppi_survey_completion_date'
     }
   end
@@ -529,7 +549,7 @@ class BatchHealthPro < ApplicationRecord
       'Urine 10 mL Collected' => 'urine_10_ml_collected',
       'Urine 10 mL Collection Date' => 'urine_10_ml_collection_date',
       'Urine 90 mL Collected' => 'urine_90_ml_collected',
-      'Urine 90 mL Collection Date'  => 'urine_90_ml_collection_date',
+      'Urine 90 mL Collection Date' => 'urine_90_ml_collection_date',
       'Cell-Free DNA Collected' => 'cell_free_dna_collected',
       'Cell-Free DNA Collection Date' => 'cell_free_dna_collected_date',
       'Paxgene RNA Collected' => 'paxgene_rna_collected',
