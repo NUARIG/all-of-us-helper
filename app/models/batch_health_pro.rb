@@ -477,7 +477,21 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date',
       'enrollmentSite' => 'enrollment_site',
       'questionnaireOnCopeVaccineMinute4' => 'new_year_minute_ppi_survey_complete',
-      'questionnaireOnCopeVaccineMinute4Authored' => 'new_year_minute_ppi_survey_completion_date'
+      'questionnaireOnCopeVaccineMinute4Authored' => 'new_year_minute_ppi_survey_completion_date',
+
+      'physicalMeasurementsCollectType' => 'physical_measurements_collect_type',
+      'onsiteIdVerificationTime' => 'onsite_id_verification_time',
+      'participantIncentives' => 'participant_incentives',
+      'selfReportedPhysicalMeasurementsStatus' => 'self_reported_physical_measurements_status',
+      'selfReportedPhysicalMeasurementsAuthored' => 'self_reported_physical_measurements_authored',
+      'clinicPhysicalMeasurementsFinalizedTime' => 'clinic_physical_measurements_finalized_time',
+      'clinicPhysicalMeasurementsFinalizedSite' => 'clinic_physical_measurements_finalized_site',
+      'clinicPhysicalMeasurementsTime' => 'clinic_physical_measurements_time',
+      'clinicPhysicalMeasurementsCreatedSite' => 'clinic_physical_measurements_created_site',
+      'reconsentForStudyEnrollmentAuthored' => 'reconsent_for_study_enrollment_authored',
+      'reconsentForElectronicHealthRecordsAuthored' => 'reconsent_for_electronic_health_records_authored',
+      'questionnaireOnLifeFunctioning' => 'questionnaire_on_life_functioning',
+      'questionnaireOnLifeFunctioningAuthored' => 'questionnaire_on_life_functioning_authored'
     }
   end
 
