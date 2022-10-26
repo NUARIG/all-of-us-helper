@@ -36,14 +36,11 @@ namespace :health_pro_api do
   task export_api_data: :environment do |t, args|
     last_health_pro_batch = BatchHealthPro.last
     columns = HealthPro.last.attribute_names
-    columns << 'registration_status'
 
     CSV.open("/mnt/fsmresfiles/all-of-us-helper/HealthPro_api/health_pro_api_#{Time.now.strftime('%Y-%m-%d')}.csv", "wb") do |csv|
       csv << CSV::Row.new(columns, columns, true)
       last_health_pro_batch.health_pros.find_each do |health_pro|
-        row = columns.map { |column| health_pro.send(column) }
-        patient = Patient.where(pmi_id: health_pro.pmi_id).first
-        row << patient ? patient.registration_status : nil
+        csv << columns.map { |column| health_pro.send(column) }
       end
     end
   end
