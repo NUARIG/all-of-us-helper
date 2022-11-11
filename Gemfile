@@ -11,6 +11,10 @@ ruby '2.5.1'
 gem 'rails', '~> 5.1.4'
 # Use PostgreSQL 'pg' gem as the database for Active Record
 gem 'pg'
+# Use Microsfot SQL Server as the database for Active Record
+gem 'tiny_tds'
+gem 'activerecord-sqlserver-adapter'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -42,6 +46,7 @@ gem 'delayed_job_active_record', '4.1.4'
 gem 'devise', '~> 4.7'
 gem 'devise_ldap_authenticatable'
 gem 'exception_notification'
+gem 'ffi', '~> 1.13.1'
 gem 'foundation-rails', '6.4.1.2'
 gem 'google-cloud'
 gem 'haml'
@@ -53,6 +58,7 @@ gem 'record_tag_helper'
 gem 'rest-client'
 gem 'retries'
 # gem 'webpacker'
+# gem 'thin', '~> 1.6.4'
 gem 'uuid'
 gem 'whenever', :require => false
 gem 'will_paginate'
