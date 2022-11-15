@@ -1,7 +1,7 @@
 # scp -r ~/hold/STU00204480_subjects.csv all-of-us-helper-deployer@vfsmnubicapps01.fsm.northwestern.edu:/var/www/apps/all-of-us-helper/current/lib/setup/data/
 # scp -r ~/hold/STU00204480_activities.csv all-of-us-helper-deployer@vfsmnubicapps01.fsm.northwestern.edu:/var/www/apps/all-of-us-helper/current/lib/setup/data/
 
-#1 RAILS_ENV=production bundle exec rake ehr531:compare_healthpro_to_study_tracker
+#1  bundle exec rake ehr531:compare_healthpro_to_study_tracker
 #2  bundle exec rake ehr531:prepare_submission
 #3  bundle exec rake ehr531:process_detail_manual_validation_status
 
@@ -297,7 +297,7 @@ namespace :ehr531 do
     submission.save!
     pmi_ids = []
     submission.submission_batch_health_pros.each do |submission_batch_health_pro|
-      pmi_ids.concat(submission_batch_health_pro.batch_health_pro.health_pros.where(deactivation_status: '0', withdrawal_status: '0', participant_status: HealthPro::HEALTH_PRO_PARTICIPANT_STATUS_CORE_PARTICIPANT, biospecimens_location: HealthPro::BIOSPECIMEN_LOCATIONS, general_consent_status: '1', ehr_consent_status: '1').map(&:pmi_id))
+      pmi_ids.concat(submission_batch_health_pro.batch_health_pro.health_pros.where(deactivation_status: 'NOT_SUSPENDED', withdrawal_status: 'NOT_WITHDRAWN', participant_status: HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT, biospecimens_location: HealthPro::BIOSPECIMEN_LOCATIONS, general_consent_status: 'SUBMITTED', ehr_consent_status: 'SUBMITTED').map(&:pmi_id))
     end
     person_ids = Person.where(person_source_value: pmi_ids).map(&:person_id)
 
