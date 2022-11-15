@@ -130,8 +130,9 @@ class BatchHealthPro < ApplicationRecord
         Rails.logger.info '[HealthPro Import API] determined matches'
 
         if health_pro.matchable?
-          Rails.logger.info '[HealthPro Import API] health_pro is matchable'
-          health_pro.determine_empi_matches
+          # MGURLEY 11/15/2022 Commenting out.  We don't use this information.
+          # Rails.logger.info '[HealthPro Import API] health_pro is matchable'
+          # health_pro.determine_empi_matches
           Rails.logger.info '[HealthPro Import API] determined empi_matches'
           health_pro.determine_duplicates
           Rails.logger.info '[HealthPro Import API] determined duplicates'
