@@ -408,7 +408,7 @@ namespace :ehr531 do
   task(submission_report: :environment) do  |t, args|
     submission = Submission.find(Submission.maximum(:id))
     batch_health_pro_ids = submission.submission_batch_health_pros.map(&:batch_health_pro_id)
-    health_pros = HealthPro.where(batch_health_pro_id: batch_health_pro_ids, participant_status: HealthPro::HEALTH_PRO_PARTICIPANT_STATUS_CORE_PARTICIPANT, deactivation_status: '0', withdrawal_status: '0',  biospecimens_location: HealthPro::BIOSPECIMEN_LOCATIONS, general_consent_status: '1', ehr_consent_status: '1').all
+    health_pros = HealthPro.where(batch_health_pro_id: batch_health_pro_ids).where(deactivation_status: 'NOT_SUSPENDED', withdrawal_status: 'NOT_WITHDRAWN', participant_status: HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT, biospecimens_location: HealthPro::BIOSPECIMEN_LOCATIONS, general_consent_status: 'SUBMITTED', ehr_consent_status: 'SUBMITTED').all
 
     pmi_ids = submission.participant_matches.where('algorithm_validation = ? OR manual_validation = ?', ParticipantMatch::PARTICIPANT_MATCH_ALGORITHM_VALIDATION_YES, ParticipantMatch::PARTICIPANT_MATCH_MANUAL_VALIDATION_YES).map{ |participant_match| "P#{participant_match.person_id}"}
     mismatch_pmi_ids = submission.participant_matches.where('algorithm_validation = ? AND manual_validation = ?', ParticipantMatch::PARTICIPANT_MATCH_ALGORITHM_VALIDATION_NO, ParticipantMatch::PARTICIPANT_MATCH_MANUAL_VALIDATION_NO).map { |participant_match| "P#{participant_match.person_id}"}
