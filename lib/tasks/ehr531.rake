@@ -457,7 +457,7 @@ namespace :ehr531 do
     puts '2'
     person_ids = submission.participant_matches.where('algorithm_validation = ? OR manual_validation = ?', ParticipantMatch::PARTICIPANT_MATCH_ALGORITHM_VALIDATION_YES, ParticipantMatch::PARTICIPANT_MATCH_MANUAL_VALIDATION_YES).map{ |participant_match| participant_match.person_id}
     puts '3'
-    dir = "#{Rails.root}/lib/setup/data_out/#{submission.submitted_at}-v#{submission.version}"
+    dir = "/mnt/fsmresfiles/ehr_submissions/#{submission.submitted_at}-v#{submission.version}"
     Dir.mkdir dir
 
     if submission.submission_persons.empty?
