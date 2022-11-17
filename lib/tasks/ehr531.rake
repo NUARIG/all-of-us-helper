@@ -668,35 +668,35 @@ namespace :ehr531 do
     end
     Process.wait(child_pid)
 
-    child_pid = fork do
-      puts 'NOTE'
-      submission.submission_tables.build(table_name: Note.table_name)
-      #MGURLEY 9/11/2019 Datetime fix
-      # notes = Note.where(person_id: person_ids).select('note_id,person_id,note_date,CONVERT(DATETIME,note_date) AS note_datetime,note_type_concept_id,note_class_concept_id,note_title,note_text,encoding_concept_id,language_concept_id,provider_id,visit_occurrence_id,note_source_value')
-      headers = Note.new.attributes.to_hash.except('note_time', 'meta_load_exectn_guid', 'meta_orignl_load_dts').keys
-      row_header = CSV::Row.new(headers, headers, true)
-      row_template = CSV::Row.new(headers, [], false)
-      CSV.open("#{dir}/note.csv", "wb", force_quotes: true) do |csv|
-        csv << row_header
-        attributes = Note.new.attributes.to_hash.except('note_time','meta_load_exectn_guid', 'meta_orignl_load_dts').keys
-        person_ids.each_with_index do |person_id, i|
-          puts i
-          puts person_id
-          Note.where(person_id: person_id).select('note_id,person_id,note_date,note_datetime,note_type_concept_id,note_class_concept_id,note_title,note_text,encoding_concept_id,language_concept_id,provider_id,visit_occurrence_id,visit_detail_id,note_source_value').each do |note|
-            row = row_template.dup
-            attributes.each do |attribute|
-              if note[attribute].blank?
-                row[attribute] = ""
-              else
-                row[attribute] = note[attribute]
-              end
-            end
-            csv << row
-          end
-        end
-      end
-    end
-    Process.wait(child_pid)
+    # child_pid = fork do
+    #   puts 'NOTE'
+    #   submission.submission_tables.build(table_name: Note.table_name)
+    #   #MGURLEY 9/11/2019 Datetime fix
+    #   # notes = Note.where(person_id: person_ids).select('note_id,person_id,note_date,CONVERT(DATETIME,note_date) AS note_datetime,note_type_concept_id,note_class_concept_id,note_title,note_text,encoding_concept_id,language_concept_id,provider_id,visit_occurrence_id,note_source_value')
+    #   headers = Note.new.attributes.to_hash.except('note_time', 'meta_load_exectn_guid', 'meta_orignl_load_dts').keys
+    #   row_header = CSV::Row.new(headers, headers, true)
+    #   row_template = CSV::Row.new(headers, [], false)
+    #   CSV.open("#{dir}/note.csv", "wb", force_quotes: true) do |csv|
+    #     csv << row_header
+    #     attributes = Note.new.attributes.to_hash.except('note_time','meta_load_exectn_guid', 'meta_orignl_load_dts').keys
+    #     person_ids.each_with_index do |person_id, i|
+    #       puts i
+    #       puts person_id
+    #       Note.where(person_id: person_id).select('note_id,person_id,note_date,note_datetime,note_type_concept_id,note_class_concept_id,note_title,note_text,encoding_concept_id,language_concept_id,provider_id,visit_occurrence_id,visit_detail_id,note_source_value').each do |note|
+    #         row = row_template.dup
+    #         attributes.each do |attribute|
+    #           if note[attribute].blank?
+    #             row[attribute] = ""
+    #           else
+    #             row[attribute] = note[attribute]
+    #           end
+    #         end
+    #         csv << row
+    #       end
+    #     end
+    #   end
+    # end
+    # Process.wait(child_pid)
 
     child_pid = fork do
       puts 'PROCEDURE_OCCURRENCE'
