@@ -1058,7 +1058,7 @@ namespace :ehr531 do
     submission = Submission.find(Submission.maximum(:id))
     submission.submission_tables.build(table_name: ParticipantMatch.table_name)
     submission.save!
-    dir = "#{Rails.root}/lib/setup/data_out/#{submission.submitted_at}-v#{submission.version}"
+    dir = "/mnt/fsmresfiles/ehr_submissions/#{submission.submitted_at}-v#{submission.version}"
     participant_matches = submission.participant_matches.where('algorithm_validation = ? OR manual_validation = ?', ParticipantMatch::PARTICIPANT_MATCH_ALGORITHM_VALIDATION_YES, ParticipantMatch::PARTICIPANT_MATCH_MANUAL_VALIDATION_YES)
     headers = ParticipantMatch.new.attributes.to_hash.keys - ['id', 'submission_id', 'created_at', 'updated_at']
     row_header = CSV::Row.new(headers, headers, true)

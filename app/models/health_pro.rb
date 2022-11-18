@@ -213,7 +213,7 @@ class HealthPro < ApplicationRecord
     where('pmi_id = ? AND batch_health_pro_id != ? AND status = ?', pmi_id, batch_health_pro_id, HealthPro::STATUS_DECLINED)
   end
 
-  scope :for_ehr_submisison, -> { where(deactivation_status: HEALTH_PRO_API_DEACTIVATION_STATUS_NOT_SUSPENDED, withdrawal_status: 'NOT_WITHDRAWN', participant_status: HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT, biospecimens_location: HealthPro::BIOSPECIMEN_LOCATIONS, general_consent_status: 'SUBMITTED', ehr_consent_status: 'SUBMITTED' }
+  # scope :for_ehr_submisison, -> { where(deactivation_status: HEALTH_PRO_API_DEACTIVATION_STATUS_NOT_SUSPENDED, withdrawal_status: 'NOT_WITHDRAWN', participant_status: HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT, biospecimens_location: HealthPro::BIOSPECIMEN_LOCATIONS, general_consent_status: 'SUBMITTED', ehr_consent_status: 'SUBMITTED' }
 
   def determine_matches
     # if (self.paired_organization == HealthPro::PAIRED_ORGANIZATION_NORTHWESTERN || self.paired_organization.blank? || ([HealthPro::PAIRED_ORGANIZATION_NEAR_NORTH, HealthPro::PAIRED_ORGANIZATION_ILLINOIS_ERIE].include?(self.paired_organization) && (self.paired_site.blank? || HealthPro::PAIRED_SITES.include?(self.paired_site)))) && HealthPro.previously_declined(self.pmi_id, self.batch_health_pro_id).count == 0
