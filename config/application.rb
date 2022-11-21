@@ -22,5 +22,6 @@ module AllOfUsHelper
     config.custom = ActiveSupport::OrderedOptions.new
     config.custom.app_config = APP_CONFIG
     config.time_zone = 'Central Time (US & Canada)'
+    config.active_record.default_timezone = :utc
   end
 end
