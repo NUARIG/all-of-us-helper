@@ -496,30 +496,30 @@ namespace :ehr531 do
     end
     Process.wait(child_pid)
 
-    child_pid = fork do
-      puts 'VISIT_DETAIL'
-      submission.submission_tables.build(table_name: VisitDetail.table_name)
-      visit_details = VisitDetail.where(person_id: person_ids)
-      headers = VisitDetail.new.attributes.to_hash.except('meta_load_exectn_guid', 'meta_orignl_load_dts').keys
-      row_header = CSV::Row.new(headers, headers, true)
-      row_template = CSV::Row.new(headers, [], false)
-      CSV.open("#{dir}/visit_detail.csv", "wb", force_quotes: true) do |csv|
-        csv << row_header
-        attributes = VisitDetail.new.attributes.to_hash.except('meta_load_exectn_guid', 'meta_orignl_load_dts').keys
-        visit_details.each do |visit_detail|
-          row = row_template.dup
-          attributes.each do |attribute|
-            if visit_detail[attribute].blank?
-              row[attribute] = ""
-            else
-              row[attribute] = visit_detail[attribute]
-            end
-          end
-          csv << row
-        end
-      end
-    end
-    Process.wait(child_pid)
+    # child_pid = fork do
+    #   puts 'VISIT_DETAIL'
+    #   submission.submission_tables.build(table_name: VisitDetail.table_name)
+    #   visit_details = VisitDetail.where(person_id: person_ids)
+    #   headers = VisitDetail.new.attributes.to_hash.except('meta_load_exectn_guid', 'meta_orignl_load_dts').keys
+    #   row_header = CSV::Row.new(headers, headers, true)
+    #   row_template = CSV::Row.new(headers, [], false)
+    #   CSV.open("#{dir}/visit_detail.csv", "wb", force_quotes: true) do |csv|
+    #     csv << row_header
+    #     attributes = VisitDetail.new.attributes.to_hash.except('meta_load_exectn_guid', 'meta_orignl_load_dts').keys
+    #     visit_details.each do |visit_detail|
+    #       row = row_template.dup
+    #       attributes.each do |attribute|
+    #         if visit_detail[attribute].blank?
+    #           row[attribute] = ""
+    #         else
+    #           row[attribute] = visit_detail[attribute]
+    #         end
+    #       end
+    #       csv << row
+    #     end
+    #   end
+    # end
+    # Process.wait(child_pid)
 
     child_pid = fork do
       puts 'VISIT_DETAIL'
