@@ -2,24 +2,21 @@ require 'redcap_api'
 require 'study_tracker_api'
 require 'csv'
 namespace :recruitment do
-  desc "Load export"
+  desc 'Load export and update cohorts'
+  task load_export_and_cohorts: [:environment, :load_export, :load_cohorts]
+
+  desc 'Load export, use FILENAME to provide filename (without path), e.g FILENAME=AoU_Recruitment_Report_20220531.csv'
   task(load_export: :environment) do  |t, args|
     begin
+      filepath = Rails.env.development? ? "#{Rails.root}/lib/setup/data" : '/mnt/fsmresfiles/vfsmnubicapps/STU00204480'
+      filename = ENV['FILENAME'] || "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
+
       options = { system: RedcapApi::SYSTEM_REDCAP_RECRUITMENT, api_token_type: ApiToken::API_TOKEN_TYPE_REDCAP_RECRUITMENT }
       redcap_api = RedcapApi.initialize_redcap_api(options)
       response = redcap_api.recruitment_patients
       recruitment_patients = response[:response]
 
-      file = "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
-      # file = "AoU_Recruitment_Report_20220531.csv"
-
-      if Rails.env.development?
-        file = "#{Rails.root}/lib/setup/data/#{file}"
-      else
-        file = "/mnt/fsmresfiles/vfsmnubicapps/STU00204480/#{file}"
-      end
-
-      edw_patients = CSV.new(File.open(file), headers: true, col_sep: ",", return_headers: false,  quote_char: "\"")
+      edw_patients = CSV.new(File.open("#{filepath}/#{filename}"), headers: true, col_sep: ",", return_headers: false,  quote_char: "\"")
       edw_patients.each do |edw_patient|
         recruitment_patient = recruitment_patients.detect{ |recruitment_patient| recruitment_patient['mrn'] ==  edw_patient['mrn'] }
         if recruitment_patient.blank? && !edw_patient['mrn'].blank?
