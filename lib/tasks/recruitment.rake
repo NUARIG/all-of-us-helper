@@ -2,6 +2,9 @@ require 'redcap_api'
 require 'study_tracker_api'
 require 'csv'
 namespace :recruitment do
+  desc 'Load export and update cohorts'
+  task load_export_and_cohorts: [:environment, :load_export, :load_cohorts]
+
   desc "Load export"
   task(load_export: :environment) do  |t, args|
     begin
