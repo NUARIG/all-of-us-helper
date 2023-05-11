@@ -14,7 +14,7 @@ namespace :recruitment do
       filename = ENV['FILENAME'] || "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
 
       # Remove non-UTF characters from the original file
-      original_file = File.open("#{filename}")
+      original_file = File.open("#{filepath}/#{filename}")
       clean_file = Tempfile.new("#{filename}.clean")
 
       original_file.each do |l|
