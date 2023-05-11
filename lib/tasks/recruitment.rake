@@ -1,6 +1,8 @@
 require 'redcap_api'
 require 'study_tracker_api'
 require 'csv'
+require 'tempfile'
+
 namespace :recruitment do
   desc 'Load export and update cohorts'
   task load_export_and_cohorts: [:environment, :load_export, :load_cohorts]
@@ -11,18 +13,29 @@ namespace :recruitment do
       filepath = Rails.env.development? ? "#{Rails.root}/lib/setup/data" : '/mnt/fsmresfiles/vfsmnubicapps/STU00204480'
       filename = ENV['FILENAME'] || "AoU_Recruitment_Report_#{Date.today.to_s.gsub('-','')}.csv"
 
+      # Remove non-UTF characters from the original file
+      original_file = File.open("#{filename}")
+      clean_file = Tempfile.new("#{filename}.clean")
+
+      original_file.each do |l|
+        clean_file.write(l.encode("UTF-8", invalid: :replace, replace: ''))
+      end
+      clean_file.rewind
+
       options = { system: RedcapApi::SYSTEM_REDCAP_RECRUITMENT, api_token_type: ApiToken::API_TOKEN_TYPE_REDCAP_RECRUITMENT }
       redcap_api = RedcapApi.initialize_redcap_api(options)
       response = redcap_api.recruitment_patients
       recruitment_patients = response[:response]
 
-      edw_patients = CSV.new(File.open("#{filepath}/#{filename}"), headers: true, col_sep: ",", return_headers: false,  quote_char: "\"")
+      edw_patients = CSV.new(clean_file, headers: true, col_sep: ",", return_headers: false,  quote_char: "\"")
       edw_patients.each do |edw_patient|
         recruitment_patient = recruitment_patients.detect{ |recruitment_patient| recruitment_patient['mrn'] ==  edw_patient['mrn'] }
         if recruitment_patient.blank? && !edw_patient['mrn'].blank?
           redcap_api.create_recruitment_patient(edw_patient['mrn'], edw_patient['patient_name'], edw_patient['race'], edw_patient['gender'], edw_patient['dob'], edw_patient['ethnicity'], edw_patient['patient_address_1'], edw_patient['patient_address_2'], edw_patient['patient_city'], edw_patient['patient_state_province'], edw_patient['patient_email_address'], edw_patient['patient_postal_code'], edw_patient['patient_home_phone'], edw_patient['patient_work_phone'], edw_patient['patient_mobile_phone'], edw_patient['department_name'], edw_patient['department_external_name'], edw_patient['appointment_datetime'])
         end
       end
+      clean_file.close
+      clean_file.unlink
     rescue => error
       handle_error(t, error)
     end
