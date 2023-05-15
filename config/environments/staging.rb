@@ -100,7 +100,7 @@ Rails.application.configure do
       sender_address: Rails.configuration.custom.app_config['support']['sender_address'],
       exception_recipients: Rails.configuration.custom.app_config['support']['recipients']
     }
-    config.all_of_us_helper_api_users = ActiveSupport::HashWithIndifferentAccess.new(YAML.load_file('/etc/nubic/all_of_us_helper_api_users.yml'))
+    config.all_of_us_helper_api_users = ActiveSupport::HashWithIndifferentAccess.new(YAML.load_file('/opt/all_of_us_helper/api_users.yml'))
 
   ENV['GOOGLE_APPLICATION_CREDENTIALS'] = Rails.configuration.custom.app_config['health_pro'][Rails.env]['json_key_io']
 end
