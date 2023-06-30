@@ -22,8 +22,8 @@ production:
   key_file: /etc/pki/tls/private/all-of-us-helper_cancer_northwestern_edu.key
 support:
   recipients:
-    - m-gurley@northwestern.edu
     - y-bushmanova@northwestern.edu
+    - pierre.shum@northwestern.edu
   sender_address: all-of-us-helper@northwestern.edu
 redcap:
   development:
