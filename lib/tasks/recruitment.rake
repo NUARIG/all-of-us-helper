@@ -152,9 +152,9 @@ namespace :recruitment do
 
       record_ids = CSV.new(File.open(file), headers: false, col_sep: ",", return_headers: false,  quote_char: "\"")
       record_ids.each do |record_id|
-        puts record_id
+        puts record_id[0].inspect
         puts 'we going to delete!'
-        redcap_api.delete_recruitment_patient(record_id)
+        redcap_api.delete_recruitment_patient(record_id[0])
         puts 'we we did it!'
       end
     rescue => error
