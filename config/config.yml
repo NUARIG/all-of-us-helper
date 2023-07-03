@@ -7,9 +7,8 @@ development:
 test:
   server_name: 0.0.0.0:3000
 staging:
-  app_host: vtfsmnubicapps01.fsm.northwestern.edu
+  app_host: vtfsmallofus1.fsm.northwestern.edu
   server_name: all-of-us-helper-staging.cancer.northwestern.edu
-  server_alias: all-of-us-helper-staging.cancer.northwestern.edu
   cert_file: /etc/pki/tls/certs/all-of-us-helper-staging_cancer_northwestern_edu_cert.cer
   chain_file: /etc/pki/tls/certs/all-of-us-helper-staging_cancer_northwestern_edu_interm.cer
   key_file: /etc/pki/tls/private/all-of-us-helper-staging_cancer_northwestern_edu.key
@@ -91,9 +90,9 @@ health_pro:
     verify_ssl: false
   staging:
     awardee: ILLINOIS
-    project: all-of-us-rdr-prod
-    project_id: all-of-us-ops-data-api-prod
-    service_account: awardee-illinois@all-of-us-ops-data-api-prod.iam.gserviceaccount.com
+    project: all-of-us-rdr-stable
+    project_id: all-of-us-ops-data-api-stable
+    service_account: awardee-illinois@all-of-us-ops-data-api-stable.iam.gserviceaccount.com
     participant_summary_url: https://#{project}.appspot.com/rdr/v1/ParticipantSummary
     json_key_io: /var/www/apps/all-of-us-helper/shared/gcloud_key.json
     json_key_io_path: /var/www/apps/all-of-us-helper/shared/
