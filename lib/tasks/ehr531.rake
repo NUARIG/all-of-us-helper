@@ -26,7 +26,7 @@
 #                     join cdm.person p ON pm.person_id = p.person_id
 #                     join cdm.pii_name pn ON  pm.person_id = pn.person_id
 #                     join cdm.pii_mrn pmrn ON pm.person_id = pmrn.person_id
-# where s.id = ?
+# where s.id = (select max(id) from submissions)
 # and pm.algorithm_validation = 'no'
 # and pmd.match_status = 'no_match'
 # and pm.manual_validation = 'undetermined'
@@ -48,7 +48,7 @@
 # select pmd.*
 # from submissions s join participant_matches pm on s.id = pm.submission_id
 #                    join participant_match_details pmd on pm.id = participant_match_id
-# where s.id = ?
+# where s.id = (select max(id) from submissions)
 # and pm.algorithm_validation = 'no'
 # and pmd.match_status = 'no_match'
 # and pmd.manual_validation_status = 'undetermined'
