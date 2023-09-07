@@ -140,6 +140,27 @@ namespace :recruitment do
       handle_error(t, error)
     end
   end
+
+  desc "Delete Patients by REDcap record_id"
+  task(delete_patients_by_record_id: :environment) do  |t, args|
+    begin
+      options = { system: RedcapApi::SYSTEM_REDCAP_RECRUITMENT, api_token_type: ApiToken::API_TOKEN_TYPE_REDCAP_RECRUITMENT }
+      redcap_api = RedcapApi.initialize_redcap_api(options)
+
+      file = ENV['FILE']
+      raise "File does not exist: #{file}" unless FileTest.exists?(file)
+
+      record_ids = CSV.new(File.open(file), headers: false, col_sep: ",", return_headers: false,  quote_char: "\"")
+      record_ids.each do |record_id|
+        puts record_id[0].inspect
+        puts 'we going to delete!'
+        redcap_api.delete_recruitment_patient(record_id[0])
+        puts 'we we did it!'
+      end
+    rescue => error
+      handle_error(t, error)
+    end
+  end
 end
 
 def handle_error(t, error)
