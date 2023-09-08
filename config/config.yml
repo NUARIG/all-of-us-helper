@@ -1,7 +1,7 @@
 ---
 application: all-of-us-helper
 repository: https://github.com/NUARIG/all-of-us-helper.git
-deployer: all-of-us-helper-deployer
+deployer: deploy
 development:
   server_name: 0.0.0.0:3000
 test:
@@ -13,7 +13,7 @@ staging:
   chain_file: /etc/pki/tls/certs/all-of-us-helper-staging_cancer_northwestern_edu_interm.cer
   key_file: /etc/pki/tls/private/all-of-us-helper-staging_cancer_northwestern_edu.key
 production:
-  app_host: vfsmnubicapps01.fsm.northwestern.edu
+  app_host: vfsmallofus1.fsm.northwestern.edu
   server_name: all-of-us-helper.cancer.northwestern.edu
   server_alias: all-of-us-helper.cancer.northwestern.edu
   cert_file: /etc/pki/tls/certs/all-of-us-helper_cancer_northwestern_edu_cert.cer
