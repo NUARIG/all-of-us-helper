@@ -1,0 +1,30 @@
+!!! 5
+
+-# This is not a usual application view. It's rendered by `rake maintenance:html`
+-# into public/maintentance.html
+
+%html
+  %head
+    %title Study Tracker is down for maintenance
+    %style{ :type => 'text/css' }
+      :sass
+        body
+          font-family: Helvetica, sans-serif
+          background: #CCD3E8
+        #message
+          margin: 3em auto
+          padding: 2em
+          width: 40em
+          background: #eee
+          border-radius: 0.5em
+          border: 2px solid #406CD5
+        h1
+          padding-top: 0
+          margin-top: 0
+  %body
+    #message
+      %h1 Study Tracker is down for maintenance
+      %p
+        It will be back soon.
+      %h4
+        If you have any questions, please contact the studytracker@northwestern.edu

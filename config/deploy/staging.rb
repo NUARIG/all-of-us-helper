@@ -1,7 +1,7 @@
 lock '3.6.0'
 
 set :stage, :staging
-set :user, 'deploy'
+set :user, APP_CONFIG['deployer']
 set :app_host, APP_CONFIG[ fetch(:stage).to_s ]['app_host']
 set :app_server, "#{fetch(:user)}@#{ fetch(:app_host) }"
 
