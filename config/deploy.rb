@@ -68,6 +68,27 @@ namespace :deploy do
   #   end
   # end
   # before 'deploy:assets:precompile', 'deploy:symlink:database_config'
+  desc 'Put maintenance page to the application'
+  task :block do
+    on roles(:web) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'maintenance:block'
+        end
+      end
+    end
+  end
+
+  desc 'Remove maintenance page from the application'
+  task :unblock do
+    on roles(:web) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :rake, 'maintenance:unblock'
+        end
+      end
+    end
+  end
 
   task :httpd_graceful do
     on roles(:web), in: :sequence, wait: 5 do
@@ -102,6 +123,18 @@ NameVirtualHost *:443
   PassengerRuby /usr/local/rvm/wrappers/ruby-#{ fetch(:rvm_ruby_version) }/ruby
 
   ServerName #{ APP_CONFIG[ fetch(:stage).to_s ]['server_name'] }
+
+  ErrorDocument 503 /maintenance.html
+  RewriteEngine On
+
+  # rewrites nearly everything to /maintenance, forcing redirect
+  RewriteCond %{REQUEST_URI} !\.(js|css|gif|jpg|png|mov|swf)$
+  RewriteCond %{DOCUMENT_ROOT}/maintenance.html -f
+  RewriteCond %{SCRIPT_FILENAME} !maintenance.html|policy.html|maintenance$
+  RewriteRule ^.*$  /maintenance [R]
+
+  # rewrites /maintenance to error 503, maintenance.html, no redirect
+  RewriteRule ^/maintenance$ - [R=503,L]
 
   SSLEngine On
   SSLCertificateFile #{ APP_CONFIG[ fetch(:stage).to_s ]['cert_file'] }
