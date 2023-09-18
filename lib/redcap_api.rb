@@ -478,7 +478,7 @@ class RedcapApi
           content_type:  'application/json',
           accept: 'json',
           verify_ssl: @verify_ssl,
-          timeout: 60
+          timeout: 180
         )
         ApiLog.create_api_log(@api_url, payload, response, nil, @system)
         response = JSON.parse(response) if parse_response
