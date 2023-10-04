@@ -6,6 +6,7 @@ class RedcapApi
   SYSTEM_REDCAP_RECRUITMENT = 'redcap recruitment'
 
   def self.initialize_redcap_api(options={})
+    byebug
     options = { system: SYSTEM_REDCAP, api_token_type: ApiToken::API_TOKEN_TYPE_REDCAP }.merge(options)
     api_token = ApiToken.where(api_token_type: options[:api_token_type]).first
     redcap_api = RedcapApi.new(api_token.token, options[:system])
