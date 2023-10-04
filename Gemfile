@@ -8,7 +8,7 @@ end
 ruby '2.7.8'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 6.0'
 # Use PostgreSQL 'pg' gem as the database for Active Record
 gem 'pg'
 # Use Microsfot SQL Server as the database for Active Record
@@ -58,6 +58,7 @@ gem 'record_tag_helper'
 gem 'rest-client'
 gem 'retries'
 gem 'grpc', '1.47.0'
+gem 'rbtree', '0.4.4'
 # gem 'webpacker'
 # gem 'thin', '~> 1.6.4'
 gem 'uuid'
@@ -82,7 +83,7 @@ group :development do
   gem 'capistrano', '3.6.0'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-  gem 'mailcatcher'
+  # gem 'mailcatcher' 'should not be included in gemfile'
   gem 'rb-readline'
 end
 
