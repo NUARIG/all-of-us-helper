@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20220719123115) do
+ActiveRecord::Schema.define(version: 202210261812226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,6 +267,21 @@ ActiveRecord::Schema.define(version: 20220719123115) do
     t.string "digital_health_status_apple_health_kit_completion_date_d"
     t.string "digital_health_status_apple_health_ehr_complete_y"
     t.string "digital_health_status_apple_health_ehr_completion_date_d"
+    t.string "physical_measurements_collect_type"
+    t.string "onsite_id_verification_time"
+    t.string "participant_incentives"
+    t.string "self_reported_physical_measurements_status"
+    t.string "self_reported_physical_measurements_authored"
+    t.string "clinic_physical_measurements_finalized_time"
+    t.string "clinic_physical_measurements_finalized_site"
+    t.string "clinic_physical_measurements_time"
+    t.string "clinic_physical_measurements_created_site"
+    t.string "reconsent_for_study_enrollment_authored"
+    t.string "reconsent_for_electronic_health_records_authored"
+    t.string "questionnaire_on_life_functioning"
+    t.string "questionnaire_on_life_functioning_authored"
+    t.string "questionnaire_on_behaviorial_health_and_personality"
+    t.string "questionnaire_on_emotional_health_history_and_wel_being"
     t.index ["batch_health_pro_id"], name: "idx_health_pros_batch_health_pro_id"
     t.index ["pmi_id"], name: "idx_health_pros_pmi_id"
     t.index ["status"], name: "index_health_pros_on_status"
