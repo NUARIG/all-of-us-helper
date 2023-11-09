@@ -6,7 +6,7 @@ APP_CONFIG = YAML.load(File.open('config/config.yml'))
 set :application, APP_CONFIG['application']
 set :repo_url, APP_CONFIG['repository']
 
-set :rvm_ruby_version, '2.5.1'
+set :rvm_ruby_version, '3.2.2'
 
 # Default branch is :master
 ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
