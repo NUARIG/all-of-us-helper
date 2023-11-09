@@ -91,7 +91,7 @@ class Ldap
   # @return [HashWithIndifferentAccess]
   def get_ldap_config
     ldap_config = File.join(Rails.root, 'config', 'ldap.yml')
-    if File.exists?(ldap_config)
+    if File.exist?(ldap_config)
       @config ||= ActiveSupport::HashWithIndifferentAccess.new(YAML.load_file(ldap_config))[Rails.env]
     end
   end
