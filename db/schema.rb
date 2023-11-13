@@ -280,8 +280,6 @@ ActiveRecord::Schema.define(version: 202210261812226) do
     t.string "reconsent_for_electronic_health_records_authored"
     t.string "questionnaire_on_life_functioning"
     t.string "questionnaire_on_life_functioning_authored"
-    t.string "questionnaire_on_behaviorial_health_and_personality"
-    t.string "questionnaire_on_emotional_health_history_and_well_being"
     t.index ["batch_health_pro_id"], name: "idx_health_pros_batch_health_pro_id"
     t.index ["pmi_id"], name: "idx_health_pros_pmi_id"
     t.index ["status"], name: "index_health_pros_on_status"
