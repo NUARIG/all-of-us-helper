@@ -492,7 +492,10 @@ class BatchHealthPro < ApplicationRecord
       'reconsentForStudyEnrollmentAuthored' => 'reconsent_for_study_enrollment_authored',
       'reconsentForElectronicHealthRecordsAuthored' => 'reconsent_for_electronic_health_records_authored',
       'questionnaireOnLifeFunctioning' => 'questionnaire_on_life_functioning',
-      'questionnaireOnLifeFunctioningAuthored' => 'questionnaire_on_life_functioning_authored'
+      'questionnaireOnLifeFunctioningAuthored' => 'questionnaire_on_life_functioning_authored',
+
+      'questionnaireOnBehavioralHealthAndPersonality' => 'questionnaire_on_behaviorial_health_and_personality',
+      'questionnaireOnEmotionalHealthHistoryAndWellBeing' => 'questionnaire_on_emotional_health_history_and_well_being'
     }
   end
 
