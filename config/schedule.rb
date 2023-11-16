@@ -60,4 +60,7 @@ case environment
       rake "redcap:synch_patients_to_redcap"
     end
   when 'staging'
+    every :day, at: '12:00am' do # Use any day of the week or :weekend, :weekday
+      rake "health_pro_api:rotate_service_account_key"
+    end
 end
