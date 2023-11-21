@@ -1,6 +1,5 @@
 require 'googleauth'
-require 'google/apis/iamcredentials_v1'
-require 'googleauth/stores/file_token_store'
+require 'google/apis/iam_v1'
 require 'base64'
 require "fileutils"
 class HealthProApi
@@ -32,13 +31,13 @@ class HealthProApi
   end
 
   def create_service_account_key
-    service = Google::Apis::IamcredentialsV1::IAMCredentialsService.new #Google::Apis::IamV1::IamService.new
+    service = Google::Apis::IamV1::IamService.new
     service.authorization = Google::Auth.get_application_default(['https://www.googleapis.com/auth/cloud-platform'])
     project_id = Rails.configuration.custom.app_config['health_pro'][Rails.env]['project_id']
     service_account = Rails.configuration.custom.app_config['health_pro'][Rails.env]['service_account']
     name = "projects/#{project_id}/serviceAccounts/#{service_account}"
-    request_body = Google::Apis::IamcredentialsV1::CreateServiceAccountKeyRequest.new #Google::Apis::IamV1::CreateServiceAccountKeyRequest.new
-    response = service.projects_service_accounts_keys.create(name, request_body)#service.create_service_account_key(name, request_body)
+    request_body = Google::Apis::IamV1::CreateServiceAccountKeyRequest.new
+    response = service.create_service_account_key(name, request_body)
     privateKeyData = JSON.parse(response.to_json)['privateKeyData']
     privateKeyData = Base64.strict_decode64(privateKeyData)
     privateKeyData = JSON.parse(privateKeyData)
