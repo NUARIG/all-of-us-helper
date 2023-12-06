@@ -551,7 +551,8 @@ GEM
       request_store (~> 1.4)
     pg (1.5.4)
     public_suffix (5.0.3)
-    puma (3.12.6)
+    puma (5.6.7)
+      nio4r (~> 2.0)
     pundit (2.3.1)
       activesupport (>= 3.0.0)
     racc (1.7.2)
@@ -761,7 +762,7 @@ DEPENDENCIES
   listen (~> 3.0.5)
   paper_trail
   pg
-  puma (~> 3.7)
+  puma (~> 5.6)
   pundit
   rails (~> 6.0)
   rb-readline
