@@ -5,10 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-ruby '2.5.1'
+ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 6.0'
 # Use PostgreSQL 'pg' gem as the database for Active Record
 gem 'pg'
 # Use Microsfot SQL Server as the database for Active Record
@@ -57,6 +57,8 @@ gem 'pundit'
 gem 'record_tag_helper'
 gem 'rest-client'
 gem 'retries'
+gem 'grpc', '1.59.0'
+gem 'rbtree', '0.4.6'
 # gem 'webpacker'
 # gem 'thin', '~> 1.6.4'
 gem 'uuid'
@@ -64,6 +66,7 @@ gem 'whenever', :require => false
 gem 'will_paginate'
 gem 'will_paginate-foundation'
 gem 'yajl-ruby', require: 'yajl'
+gem 'google-api-client', require: 'google/apis/iamcredentials_v1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -78,10 +81,10 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  gem 'capistrano', '3.6.0'
+  gem 'capistrano', '~> 3.16.0'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
-  gem 'mailcatcher'
+  # gem 'mailcatcher' 'should not be included in gemfile'
   gem 'rb-readline'
 end
 

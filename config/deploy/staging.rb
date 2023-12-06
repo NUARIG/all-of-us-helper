@@ -1,4 +1,4 @@
-lock '3.6.0'
+lock '3.16.0'
 
 set :stage, :staging
 set :user, APP_CONFIG['deployer']
