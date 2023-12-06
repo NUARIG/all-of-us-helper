@@ -148,7 +148,7 @@ namespace :recruitment do
       redcap_api = RedcapApi.initialize_redcap_api(options)
 
       file = ENV['FILE']
-      raise "File does not exist: #{file}" unless FileTest.exists?(file)
+      raise "File does not exist: #{file}" unless FileTest.exist?(file)
 
       record_ids = CSV.new(File.open(file), headers: false, col_sep: ",", return_headers: false,  quote_char: "\"")
       record_ids.each do |record_id|

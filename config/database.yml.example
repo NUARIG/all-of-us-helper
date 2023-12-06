@@ -1,0 +1,24 @@
+default:
+    adapter: postgresql
+    host: localhost
+development:
+    adapter: postgresql
+    host: localhost
+    datamapper_adapter: postgres
+    database: all_of_us
+    username: pcs7677
+    password:
+development_sec:
+    adapter: postgresql
+    host: localhost
+    datamapper_adapter: postgres
+    database: enotis
+    username: pcs7677
+    password:
+test:
+    adapter: postgresql
+    host: localhost
+    datamapper_adapter: postgres
+    database: all_of_us_test
+    username: pcs7677
+    password:
