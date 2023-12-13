@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.6.0
-lock '3.6.0'
+lock '3.16.0'
 
 set :stage, :production
 set :user, APP_CONFIG['deployer']
