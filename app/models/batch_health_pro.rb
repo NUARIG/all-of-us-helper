@@ -495,11 +495,11 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnLifeFunctioningAuthored' => 'questionnaire_on_life_functioning_authored',
 
       'questionnaireOnBehavioralHealthAndPersonality' => 'questionnaire_on_behaviorial_health_and_personality',
-      'questionnaireOnEmotionalHealthHistoryAndWellBeing' => 'questionnaire_on_emotional_health_history_and_well_being'
+      'questionnaireOnEmotionalHealthHistoryAndWellBeing' => 'questionnaire_on_emotional_health_history_and_well_being',
 
-      'questionnaireOnBehavioralHealthAndPersonalityAuthored' => 'questionnaire_on_behaviorial_health_and_personality_authored'
-      'questionnaireOnEmotionalHealthHistoryAndWellBeingAuthored' => 'questionnaire_on_emotional_health_history_and_well_being_authored'
-      'questionnaireOnEnvironmentalExposures' => 'questionnaire_on_environmental_exposures'
+      'questionnaireOnBehavioralHealthAndPersonalityAuthored' => 'questionnaire_on_behaviorial_health_and_personality_authored',
+      'questionnaireOnEmotionalHealthHistoryAndWellBeingAuthored' => 'questionnaire_on_emotional_health_history_and_well_being_authored',
+      'questionnaireOnEnvironmentalExposures' => 'questionnaire_on_environmental_exposures',
       'questionnaireOnEnvironmentalExposuresAuthored' => 'questionnaire_on_environmental_exposures_authored'
     }
   end
