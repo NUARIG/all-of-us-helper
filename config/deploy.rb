@@ -78,7 +78,8 @@ namespace :deploy do
 
   task :monit do
     on roles(:web), in: :sequence, wait: 5 do
-      execute :sudo, "monit restart all"
+      execute :sudo, "service monit restart"
+      execute :sudo, "monit restart delayed_job_all_of_us_helper"
     end
   end
 end
