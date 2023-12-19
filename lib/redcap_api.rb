@@ -85,6 +85,28 @@ class RedcapApi
     { response: api_response[:response], error: api_response[:error] }
   end
 
+  def recruitment_patients_by_mrns(mrns=[])
+    mrn_filter = mrns.map{|mrn| "[mrn] = '#{mrn}'"}.join(' OR ')
+    payload = {
+      :token => @api_token,
+      :content => 'record',
+      :format => 'json',
+      :type => 'flat',
+      'fields[0]' => 'record_id',
+      'fields[1]' => 'mrn',
+      'fields[2]' => 'st_event',
+      'fields[3]' => 'st_event_d',
+      'fields[4]' => 'st_import_d',
+      'filterLogic' => mrn_filter,
+      :returnFormat => 'json'
+    }
+
+    api_response = redcap_api_request_wrapper(payload)
+
+    { response: api_response[:response], error: api_response[:error] }
+  end
+
+
   def update_recruitment_patient(record_id, st_event, st_event_d, st_import_d)
      payload = {
          :token => @api_token,
