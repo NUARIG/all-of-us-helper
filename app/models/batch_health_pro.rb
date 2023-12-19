@@ -498,7 +498,7 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnEmotionalHealthHistoryAndWellBeing' => 'questionnaire_on_emotional_health_history_and_well_being',
 
       'questionnaireOnBehavioralHealthAndPersonalityAuthored' => 'questionnaire_on_behaviorial_health_and_personality_authored',
-      'questionnaireOnEmotionalHealthHistoryAndWellBeingAuthored' => 'questionnaire_on_emotional_health_history_and_well_being_authored',
+      'questionnaireOnEmotionalHealthHistoryAndWellBeingAuthored' => 'questionnaire_on_emotional_health_history_and_well_being_author',
       'questionnaireOnEnvironmentalExposures' => 'questionnaire_on_environmental_exposures',
       'questionnaireOnEnvironmentalExposuresAuthored' => 'questionnaire_on_environmental_exposures_authored'
     }
@@ -606,7 +606,7 @@ class BatchHealthPro < ApplicationRecord
     end
 
     def convert_dates(row)
-      ['general_consent_date', 'ehr_consent_date', 'withdrawal_date', 'physical_measurements_completion_date', 'genomic_consent_status_date', 'core_participant_date', 'deactivation_date', 'basics_ppi_survey_completion_date', 'health_ppi_survey_completion_date', 'lifestyle_ppi_survey_completion_date', 'hist_ppi_survey_completion_date', 'meds_ppi_survey_completion_date',  'family_ppi_survey_completion_date', 'access_ppi_survey_completion_date', 'questionnaire_on_cope_may_time', 'questionnaire_on_cope_june_time', 'questionnaire_on_cope_july_authored', 'date_of_first_primary_consent', 'date_of_first_ehr_consent', 'questionnaire_on_behaviorial_health_and_personality_authored', 'questionnaire_on_emotional_health_history_and_well_being_authored', 'questionnaire_on_environmental_exposures_authored'].each do |column|
+      ['general_consent_date', 'ehr_consent_date', 'withdrawal_date', 'physical_measurements_completion_date', 'genomic_consent_status_date', 'core_participant_date', 'deactivation_date', 'basics_ppi_survey_completion_date', 'health_ppi_survey_completion_date', 'lifestyle_ppi_survey_completion_date', 'hist_ppi_survey_completion_date', 'meds_ppi_survey_completion_date',  'family_ppi_survey_completion_date', 'access_ppi_survey_completion_date', 'questionnaire_on_cope_may_time', 'questionnaire_on_cope_june_time', 'questionnaire_on_cope_july_authored', 'date_of_first_primary_consent', 'date_of_first_ehr_consent', 'questionnaire_on_behaviorial_health_and_personality_authored', 'questionnaire_on_emotional_health_history_and_well_being_author', 'questionnaire_on_environmental_exposures_authored'].each do |column|
         convert_date(row, column)
       end
     end
