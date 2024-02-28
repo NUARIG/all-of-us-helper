@@ -8,7 +8,7 @@ end
 ruby '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 7.1'
 # Use PostgreSQL 'pg' gem as the database for Active Record
 gem 'pg'
 # Use Microsfot SQL Server as the database for Active Record
@@ -42,7 +42,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'american_date'
 gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'daemons'
-gem 'delayed_job_active_record', '4.1.4'
+gem 'delayed_job_active_record', '4.1.8'
 gem 'devise', '~> 4.7'
 gem 'devise_ldap_authenticatable'
 gem 'exception_notification'
