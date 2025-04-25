@@ -183,7 +183,7 @@ class BatchHealthPro < ApplicationRecord
       matched_pmi_patient.paired_organization = health_pro.paired_organization
       matched_pmi_patient.health_pro_email = health_pro.email
       matched_pmi_patient.health_pro_phone = health_pro.phone
-      # matched_pmi_patient.health_pro_login_phone = health_pro.login_phone
+      matched_pmi_patient.health_pro_login_phone = health_pro.login_phone
       matched_pmi_patient.genomic_consent_status = health_pro.consent_for_genomics_ror
       matched_pmi_patient.genomic_consent_status_date = health_pro.consent_for_genomics_ror_date
       matched_pmi_patient.questionnaire_on_cope_may = health_pro.questionnaire_on_cope_may
@@ -498,7 +498,7 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnEmotionalHealthHistoryAndWellBeing' => 'questionnaire_on_emotional_health_history_and_well_being',
 
       'questionnaireOnBehavioralHealthAndPersonalityAuthored' => 'questionnaire_on_behaviorial_health_and_personality_authored',
-      'questionnaireOnEmotionalHealthHistoryAndWellBeingAuthored' => 'questionnaire_on_emotional_health_history_and_well_being_author', #this is saved as _author in database field
+      'questionnaireOnEmotionalHealthHistoryAndWellBeingAuthored' => 'questionnaire_on_emotional_health_history_and_well_being_author',
       'questionnaireOnEnvironmentalExposures' => 'questionnaire_on_environmental_exposures',
       'questionnaireOnEnvironmentalExposuresAuthored' => 'questionnaire_on_environmental_exposures_authored'
     }
