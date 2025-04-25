@@ -183,7 +183,7 @@ class BatchHealthPro < ApplicationRecord
       matched_pmi_patient.paired_organization = health_pro.paired_organization
       matched_pmi_patient.health_pro_email = health_pro.email
       matched_pmi_patient.health_pro_phone = health_pro.phone
-      matched_pmi_patient.health_pro_login_phone = health_pro.login_phone
+      # matched_pmi_patient.health_pro_login_phone = health_pro.login_phone
       matched_pmi_patient.genomic_consent_status = health_pro.consent_for_genomics_ror
       matched_pmi_patient.genomic_consent_status_date = health_pro.consent_for_genomics_ror_date
       matched_pmi_patient.questionnaire_on_cope_may = health_pro.questionnaire_on_cope_may
@@ -275,7 +275,7 @@ class BatchHealthPro < ApplicationRecord
               matched_pmi_patient.paired_site = health_pro.paired_site
               matched_pmi_patient.paired_organization = health_pro.paired_organization
               matched_pmi_patient.health_pro_email = health_pro.email
-              matched_pmi_patient.health_pro_login_phone = health_pro.login_phone
+              # matched_pmi_patient.health_pro_login_phone = health_pro.login_phone
               matched_pmi_patient.set_registration_status
               matched_pmi_patient.physical_measurements_completion_date = health_pro.physical_measurements_completion_date
               #new stuff
@@ -346,14 +346,14 @@ class BatchHealthPro < ApplicationRecord
       'middleName' => 'middle_name',
       'dateOfBirth' => 'date_of_birth',
       'language' => 'language',
-      'enrollmentStatus' => 'participant_status',
+      'enrollmentStatus' => 'participant_status', # deprecated
       # Participant Status
       'consentForStudyEnrollment' => 'general_consent_status',
       'consentForStudyEnrollmentAuthored' => 'general_consent_date',
       'consentForElectronicHealthRecords' => 'ehr_consent_status',
       'consentForElectronicHealthRecordsAuthored' => 'ehr_consent_date',
-      'consentForCABoR' => 'cabor_consent_status',
-      'consentForCABoRTimeAuthored' => 'cabor_consent_date',
+      'consentForCABoR' => 'cabor_consent_status', # deprecated
+      'consentForCABoRTimeAuthored' => 'cabor_consent_date', # deprecated
       'withdrawalStatus' => 'withdrawal_status',
       'withdrawalAuthored' => 'withdrawal_date',
       'suspensionStatus' => 'deactivation_status',
@@ -366,30 +366,30 @@ class BatchHealthPro < ApplicationRecord
       'zipCode' => 'zip',
       'email' => 'email',
       'phoneNumber' => 'phone',
-      'ageRange' => 'age_range',
+      'ageRange' => 'age_range', # deprecated
       'sex' => 'sex',
       'genderIdentity' => 'gender_identity',
       'race' => 'race_ethnicity',
       'education' => 'education',
-      'numCompletedBaselinePPIModules' => 'required_ppi_surveys_complete',
-      'numCompletedPPIModules' => 'completed_surveys',
+      'numCompletedBaselinePPIModules' => 'required_ppi_surveys_complete', # deprecated
+      'numCompletedPPIModules' => 'completed_surveys', # deprecated
       'questionnaireOnTheBasics' => 'basics_ppi_survey_complete',
       'questionnaireOnTheBasicsAuthored' => 'basics_ppi_survey_completion_date',
       'questionnaireOnOverallHealth' => 'health_ppi_survey_complete',
       'questionnaireOnOverallHealthAuthored' => 'health_ppi_survey_completion_date',
       'questionnaireOnLifestyle' => 'lifestyle_ppi_survey_complete',
       'questionnaireOnLifestyleAuthored' => 'lifestyle_ppi_survey_completion_date',
-      'questionnaireOnMedicalHistory' => 'hist_ppi_survey_complete',
-      'questionnaireOnMedicalHistoryAuthored' => 'hist_ppi_survey_completion_date',
-      'questionnaireOnFamilyHealth' => 'family_ppi_survey_complete',
-      'questionnaireOnFamilyHealthAuthored' => 'family_ppi_survey_completion_date',
+      'questionnaireOnMedicalHistory' => 'hist_ppi_survey_complete', # deprecated
+      'questionnaireOnMedicalHistoryAuthored' => 'hist_ppi_survey_completion_date', # deprecated
+      'questionnaireOnFamilyHealth' => 'family_ppi_survey_complete', # deprecated
+      'questionnaireOnFamilyHealthAuthored' => 'family_ppi_survey_completion_date', # deprecated
       'questionnaireOnHealthcareAccess' => 'access_ppi_survey_complete',
       'questionnaireOnHealthcareAccessAuthored' => 'access_ppi_survey_completion_date',
       # 'questionnaireOnMedications' => 'meds_ppi_survey_complete',
       # 'questionnaireOnMedicationsAuthored' => 'meds_ppi_survey_completion_date',
       'physicalMeasurementsStatus' => 'physical_measurements_status',
       'physicalMeasurementsFinalizedTime' => 'physical_measurements_completion_date',
-      'site' => 'paired_site',
+      'site' => 'paired_site', # deprecated
       'organization' => 'paired_organization',
       #Paired Site
       #Paired Organization
@@ -424,61 +424,61 @@ class BatchHealthPro < ApplicationRecord
       # 'Biospecimens Location' => 'biospecimens_location'
       'biospecimenSourceSite' => 'biospecimens_location',
       'primaryLanguage' => 'language_of_general_consent',
-      'consentForDvElectronicHealthRecordsSharing' => 'dv_only_ehr_sharing_status',
+      'consentForDvElectronicHealthRecordsSharing' => 'dv_only_ehr_sharing_status', # deprecated
       # 'DV-only EHR Sharing Date' => 'dv_only_ehr_sharing_date',
-      'loginPhoneNumber' => 'login_phone',
+      'loginPhoneNumber' => 'login_phone', #deprecated
       #new
-      'patientStatus' => 'patient_status',
-      'enrollmentStatusCoreStoredSampleTime' => 'core_participant_date',
-      'participantOrigin' => 'participant_origination',
-      'consentForGenomicsROR' => 'consent_for_genomics_ror',
-      'consentForGenomicsRORAuthored' => 'consent_for_genomics_ror_date',
-      'questionnaireOnCopeMay' => 'questionnaire_on_cope_may',
-      'questionnaireOnCopeMayTime' => 'questionnaire_on_cope_may_time',
-      'questionnaireOnCopeJune' => 'questionnaire_on_cope_june',
-      'questionnaireOnCopeJuneTime' => 'questionnaire_on_cope_june_time',
-      'questionnaireOnCopeJuly' => 'questionnaire_on_cope_july',
-      'questionnaireOnCopeJulyAuthored' => 'questionnaire_on_cope_july_authored',
+      'patientStatus' => 'patient_status', # deprecated
+      'enrollmentStatusCoreStoredSampleTime' => 'core_participant_date', #deprecated
+      'participantOrigin' => 'participant_origination', # deprecated
+      'consentForGenomicsROR' => 'consent_for_genomics_ror', # deprecated
+      'consentForGenomicsRORAuthored' => 'consent_for_genomics_ror_date', # deprecated
+      'questionnaireOnCopeMay' => 'questionnaire_on_cope_may', # deprecated
+      'questionnaireOnCopeMayTime' => 'questionnaire_on_cope_may_time', # deprecated
+      'questionnaireOnCopeJune' => 'questionnaire_on_cope_june', # deprecated
+      'questionnaireOnCopeJuneTime' => 'questionnaire_on_cope_june_time', # deprecated
+      'questionnaireOnCopeJuly' => 'questionnaire_on_cope_july', # deprecated
+      'questionnaireOnCopeJulyAuthored' => 'questionnaire_on_cope_july_authored', # deprecated
 
       #new moomin
-      'consentCohort' => 'consent_cohort',
-      'questionnaireOnDnaProgram' => 'program_update',
-      'questionnaireOnDnaProgramAuthored' => 'date_of_program_update',
-      'ehrConsentExpireStatus' => 'ehr_expiration_status',
-      'ehrconsentExpireAuthored' => 'date_of_ehr_expiration',
-      'consentForStudyEnrollmentFirstYesAuthored' => 'date_of_first_primary_consent',
-      'consentForElectronicHealthRecordsFirstYesAuthored' => 'date_of_first_ehr_consent',
+      'consentCohort' => 'consent_cohort', # deprecated
+      'questionnaireOnDnaProgram' => 'program_update', # deprecated
+      'questionnaireOnDnaProgramAuthored' => 'date_of_program_update', # deprecated
+      'ehrConsentExpireStatus' => 'ehr_expiration_status', # deprecated
+      'ehrconsentExpireAuthored' => 'date_of_ehr_expiration', # deprecated
+      'consentForStudyEnrollmentFirstYesAuthored' => 'date_of_first_primary_consent', # deprecated
+      'consentForElectronicHealthRecordsFirstYesAuthored' => 'date_of_first_ehr_consent', # deprecated
       'retentionEligibleStatus' => 'retention_eligible',
       'retentionEligibleTime' => 'date_of_retention_eligibility',
       'deceasedStatus' => 'deceased',
       'dateOfDeath' => 'date_of_death',
       'deceasedAuthored' => 'date_of_approval',
-      'questionnaireOnCopeNov' => 'cope_nov_ppi_survey_complete',
-      'questionnaireOnCopeNovAuthored' => 'cope_nov_ppi_survey_completion_date',
+      'questionnaireOnCopeNov' => 'cope_nov_ppi_survey_complete', # deprecated
+      'questionnaireOnCopeNovAuthored' => 'cope_nov_ppi_survey_completion_date', # deprecated
       'retentionType' => 'retention_status',
       'ehrStatus' => 'ehr_data_transfer',
       'latestEhrReceiptTime' => 'most_recent_ehr_receipt',
       'sample1SAL2CollectionMethod' => 'saliva_collection',
-      'questionnaireOnCopeDec' => 'cope_dec_ppi_survey_complete',
-      'questionnaireOnCopeDecAuthored' => 'cope_dec_ppi_survey_completion_date',
+      'questionnaireOnCopeDec' => 'cope_dec_ppi_survey_complete', # deprecated
+      'questionnaireOnCopeDecAuthored' => 'cope_dec_ppi_survey_completion_date', # deprecated
       #new mommin 2
       'questionnaireOnCopeFeb' => 'cope_feb_ppi_survey_complete',
       'questionnaireOnCopeFebAuthored' => 'cope_feb_ppi_survey_completion_date',
-      'enrollmentStatusCoreMinusPMTime' => 'core_participant_minus_pm_date',
-      'questionnaireOnCopeVaccineMinute1' => 'summer_minute_ppi_survey_complete',
-      'questionnaireOnCopeVaccineMinute1Authored' => 'summer_minute_ppi_survey_completion_date',
-      'questionnaireOnCopeVaccineMinute2' => 'fall_minute_ppi_survey_complete',
-      'questionnaireOnCopeVaccineMinute2Authored' => 'fall_minute_ppi_survey_completion_date',
+      'enrollmentStatusCoreMinusPMTime' => 'core_participant_minus_pm_date', # deprecated
+      'questionnaireOnCopeVaccineMinute1' => 'summer_minute_ppi_survey_complete', # deprecated
+      'questionnaireOnCopeVaccineMinute1Authored' => 'summer_minute_ppi_survey_completion_date', # deprecated
+      'questionnaireOnCopeVaccineMinute2' => 'fall_minute_ppi_survey_complete', # deprecated
+      'questionnaireOnCopeVaccineMinute2Authored' => 'fall_minute_ppi_survey_completion_date', # deprecated
       'digitalHealthSharingStatus' => 'digital_health_consent',
       'questionnaireOnPersonalAndFamilyHealthHistory' => 'personal_and_family_hx_ppi_survey_complete',
       'questionnaireOnPersonalAndFamilyHealthHistoryAuthored' => 'personal_and_family_hx_ppi_survey_completion_date',
       'questionnaireOnSocialDeterminantsOfHealth' => 'sdoh_ppi_survey_complete',
       'questionnaireOnSocialDeterminantsOfHealthAuthored' => 'sdoh_ppi_survey_completion_date',
-      'questionnaireOnCopeVaccineMinute3' => 'winter_minute_ppi_survey_complete',
-      'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date',
-      'enrollmentSite' => 'enrollment_site',
-      'questionnaireOnCopeVaccineMinute4' => 'new_year_minute_ppi_survey_complete',
-      'questionnaireOnCopeVaccineMinute4Authored' => 'new_year_minute_ppi_survey_completion_date',
+      'questionnaireOnCopeVaccineMinute3' => 'winter_minute_ppi_survey_complete', # deprecated
+      'questionnaireOnCopeVaccineMinute3Authored' => 'winter_minute_ppi_survey_completion_date', # deprecated
+      'enrollmentSite' => 'enrollment_site', # deprecated
+      'questionnaireOnCopeVaccineMinute4' => 'new_year_minute_ppi_survey_complete', # deprecated
+      'questionnaireOnCopeVaccineMinute4Authored' => 'new_year_minute_ppi_survey_completion_date', # deprecated
 
       'physicalMeasurementsCollectType' => 'physical_measurements_collect_type',
       'onsiteIdVerificationTime' => 'onsite_id_verification_time',
@@ -489,8 +489,8 @@ class BatchHealthPro < ApplicationRecord
       'clinicPhysicalMeasurementsFinalizedSite' => 'clinic_physical_measurements_finalized_site',
       'clinicPhysicalMeasurementsTime' => 'clinic_physical_measurements_time',
       'clinicPhysicalMeasurementsCreatedSite' => 'clinic_physical_measurements_created_site',
-      'reconsentForStudyEnrollmentAuthored' => 'reconsent_for_study_enrollment_authored',
-      'reconsentForElectronicHealthRecordsAuthored' => 'reconsent_for_electronic_health_records_authored',
+      'reconsentForStudyEnrollmentAuthored' => 'reconsent_for_study_enrollment_authored', # deprecated
+      'reconsentForElectronicHealthRecordsAuthored' => 'reconsent_for_electronic_health_records_authored', # deprecated
       'questionnaireOnLifeFunctioning' => 'questionnaire_on_life_functioning',
       'questionnaireOnLifeFunctioningAuthored' => 'questionnaire_on_life_functioning_authored',
 
@@ -498,7 +498,7 @@ class BatchHealthPro < ApplicationRecord
       'questionnaireOnEmotionalHealthHistoryAndWellBeing' => 'questionnaire_on_emotional_health_history_and_well_being',
 
       'questionnaireOnBehavioralHealthAndPersonalityAuthored' => 'questionnaire_on_behaviorial_health_and_personality_authored',
-      'questionnaireOnEmotionalHealthHistoryAndWellBeingAuthored' => 'questionnaire_on_emotional_health_history_and_well_being_authored',
+      'questionnaireOnEmotionalHealthHistoryAndWellBeingAuthored' => 'questionnaire_on_emotional_health_history_and_well_being_author', #this is saved as _author in database field
       'questionnaireOnEnvironmentalExposures' => 'questionnaire_on_environmental_exposures',
       'questionnaireOnEnvironmentalExposuresAuthored' => 'questionnaire_on_environmental_exposures_authored'
     }
@@ -606,7 +606,7 @@ class BatchHealthPro < ApplicationRecord
     end
 
     def convert_dates(row)
-      ['general_consent_date', 'ehr_consent_date', 'withdrawal_date', 'physical_measurements_completion_date', 'genomic_consent_status_date', 'core_participant_date', 'deactivation_date', 'basics_ppi_survey_completion_date', 'health_ppi_survey_completion_date', 'lifestyle_ppi_survey_completion_date', 'hist_ppi_survey_completion_date', 'meds_ppi_survey_completion_date',  'family_ppi_survey_completion_date', 'access_ppi_survey_completion_date', 'questionnaire_on_cope_may_time', 'questionnaire_on_cope_june_time', 'questionnaire_on_cope_july_authored', 'date_of_first_primary_consent', 'date_of_first_ehr_consent', 'questionnaire_on_behaviorial_health_and_personality_authored', 'questionnaire_on_emotional_health_history_and_well_being_authored', 'questionnaire_on_environmental_exposures_authored'].each do |column|
+      ['general_consent_date', 'ehr_consent_date', 'withdrawal_date', 'physical_measurements_completion_date', 'genomic_consent_status_date', 'core_participant_date', 'deactivation_date', 'basics_ppi_survey_completion_date', 'health_ppi_survey_completion_date', 'lifestyle_ppi_survey_completion_date', 'hist_ppi_survey_completion_date', 'meds_ppi_survey_completion_date',  'family_ppi_survey_completion_date', 'access_ppi_survey_completion_date', 'questionnaire_on_cope_may_time', 'questionnaire_on_cope_june_time', 'questionnaire_on_cope_july_authored', 'date_of_first_primary_consent', 'date_of_first_ehr_consent', 'questionnaire_on_behaviorial_health_and_personality_authored', 'questionnaire_on_emotional_health_history_and_well_being_author', 'questionnaire_on_environmental_exposures_authored'].each do |column|
         convert_date(row, column)
       end
     end
