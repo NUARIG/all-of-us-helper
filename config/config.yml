@@ -68,7 +68,6 @@ health_pro:
     service_account: awardee-illinois@all-of-us-ops-data-api-stable.iam.gserviceaccount.com
     participant_summary_url: https://#{project}.appspot.com/rdr/v1/ParticipantSummary
     awardee_insite_url: https://rdr-api.pmi-ops.org/rdr/v1/AwardeeInSite
-    awardee_insite_summary_url: https://rdr-api.pmi-ops.org/rdr/v1/ParticipantSummary
     json_key_io: /Users/mjg994/ops-data-service/gcloud_key.json
     json_key_io_path: /Users/mjg994/ops-data-service/
     verify_ssl: false
@@ -79,7 +78,6 @@ health_pro:
     service_account: awardee-illinois@all-of-us-ops-data-api-prod.iam.gserviceaccount.com
     participant_summary_url: https://#{project}.appspot.com/rdr/v1/ParticipantSummary
     awardee_insite_url: https://rdr-api.pmi-ops.org/rdr/v1/AwardeeInSite
-    awardee_insite_summary_url: https://rdr-api.pmi-ops.org/rdr/v1/ParticipantSummary
     json_key_io: /Users/mjg994/ops-data-service/gcloud_key.json
     json_key_io_path: /Users/mjg994/ops-data-service/
     verify_ssl: false
@@ -90,7 +88,6 @@ health_pro:
     service_account: awardee-illinois@all-of-us-ops-data-api-prod.iam.gserviceaccount.com
     participant_summary_url: https://#{project}.appspot.com/rdr/v1/ParticipantSummary
     awardee_insite_url: https://rdr-api.pmi-ops.org/rdr/v1/AwardeeInSite
-    awardee_insite_summary_url: https://rdr-api.pmi-ops.org/rdr/v1/ParticipantSummary
     json_key_io: /Users/mjg994/ops-data-service/gcloud_key_prod_new.json
     json_key_io_path: /Users/mjg994/ops-data-service/
     verify_ssl: false
