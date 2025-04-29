@@ -137,7 +137,6 @@ EOF
 end
 
 after "deploy:updated", "deploy:cleanup"
-after "deploy:finished", "deploy_prepare:create_vhost"
-after "deploy_prepare:create_vhost", "deploy:httpd_graceful"
+after "deploy:finished", "deploy:httpd_graceful"
 after "deploy:httpd_graceful", "deploy:restart"
 after "deploy:restart", "deploy:monit"

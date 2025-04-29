@@ -17,7 +17,7 @@ class HealthProApi
     options = { sort: 'lastModified', count: 1000 }.merge(options)
     awardee = Rails.configuration.custom.app_config['health_pro'][Rails.env]['awardee']
     project = Rails.configuration.custom.app_config['health_pro'][Rails.env]['project']
-    url = Rails.configuration.custom.app_config['health_pro'][Rails.env]['awardee_insite_summary_url']
+    url = Rails.configuration.custom.app_config['health_pro'][Rails.env]['awardee_insite_url']
     if options[:participantId]
       url = url + '?' + "_sort=#{options[:sort]}" + '&' + "_count=#{options[:count]}" + '&' + "awardee=#{awardee}"+ '&' + "participantId=#{options[:participantId]}"
     else
