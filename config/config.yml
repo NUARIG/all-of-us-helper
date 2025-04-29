@@ -69,8 +69,8 @@ health_pro:
     participant_summary_url: https://#{project}.appspot.com/rdr/v1/ParticipantSummary
     awardee_insite_url: https://rdr-api.pmi-ops.org/rdr/v1/AwardeeInSite
     awardee_insite_summary_url: https://rdr-api.pmi-ops.org/rdr/v1/ParticipantSummary
-    json_key_io: /Users/pcs7677/Desktop/ops-data-service/gcloud_key.json
-    json_key_io_path: /Users/pcs7677/Desktop/ops-data-service/
+    json_key_io: /Users/mjg994/ops-data-service/gcloud_key.json
+    json_key_io_path: /Users/mjg994/ops-data-service/
     verify_ssl: false
   development:
     awardee: ILLINOIS

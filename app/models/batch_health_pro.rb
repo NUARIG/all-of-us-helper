@@ -275,7 +275,7 @@ class BatchHealthPro < ApplicationRecord
               matched_pmi_patient.paired_site = health_pro.paired_site
               matched_pmi_patient.paired_organization = health_pro.paired_organization
               matched_pmi_patient.health_pro_email = health_pro.email
-              # matched_pmi_patient.health_pro_login_phone = health_pro.login_phone
+              matched_pmi_patient.health_pro_login_phone = health_pro.login_phone
               matched_pmi_patient.set_registration_status
               matched_pmi_patient.physical_measurements_completion_date = health_pro.physical_measurements_completion_date
               #new stuff
