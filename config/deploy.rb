@@ -84,60 +84,7 @@ namespace :deploy do
   end
 end
 
-namespace :deploy_prepare do
-  desc 'Configure virtual host'
-  task :create_vhost do
-    on roles(:web), in: :sequence, wait: 5 do
-      vhost_config = <<-EOF
-NameVirtualHost *:80
-NameVirtualHost *:443
-
-<VirtualHost *:80>
-  ServerName #{ APP_CONFIG[ fetch(:stage).to_s ]['server_name'] }
-  Redirect permanent / https://#{ APP_CONFIG[ fetch(:stage).to_s ]['server_name'] }/
-</VirtualHost>
-
-<VirtualHost *:443>
-  PassengerFriendlyErrorPages off
-  PassengerAppEnv #{ fetch(:stage) }
-  PassengerRuby /usr/local/rvm/wrappers/ruby-#{ fetch(:rvm_ruby_version) }/ruby
-
-  ServerName #{ APP_CONFIG[ fetch(:stage).to_s ]['server_name'] }
-
-  ErrorDocument 503 /maintenance.html
-  RewriteEngine On
-
-  # rewrites nearly everything to /maintenance, forcing redirect
-  RewriteCond %{REQUEST_URI} !\.(js|css|gif|jpg|png|mov|swf)$
-  RewriteCond %{DOCUMENT_ROOT}/maintenance.html -f
-  RewriteCond %{SCRIPT_FILENAME} !maintenance.html|policy.html|maintenance$
-  RewriteRule ^.*$  /maintenance [R]
-
-  # rewrites /maintenance to error 503, maintenance.html, no redirect
-  RewriteRule ^/maintenance$ - [R=503,L]
-
-  SSLEngine On
-  SSLCertificateFile #{ APP_CONFIG[ fetch(:stage).to_s ]['cert_file'] }
-  SSLCertificateChainFile #{ APP_CONFIG[ fetch(:stage).to_s ]['chain_file'] }
-  SSLCertificateKeyFile #{ APP_CONFIG[ fetch(:stage).to_s ]['key_file'] }
-
-  DocumentRoot #{ fetch(:deploy_to) }/current/public
-  RailsBaseURI /
-  PassengerDebugLogFile /var/log/httpd/#{ fetch(:application) }_passenger.log
-
-  <Directory #{ fetch(:deploy_to) }/current/public >
-    Allow from all
-    Options -MultiViews
-  </Directory>
-</VirtualHost>
-EOF
-      execute :echo, "\"#{ vhost_config }\"", ">", "/etc/httpd/conf.d/#{ fetch(:application) }.conf"
-    end
-  end
-end
-
 after "deploy:updated", "deploy:cleanup"
-after "deploy:finished", "deploy_prepare:create_vhost"
-after "deploy_prepare:create_vhost", "deploy:httpd_graceful"
+after "deploy:finished", "deploy:httpd_graceful"
 after "deploy:httpd_graceful", "deploy:restart"
 after "deploy:restart", "deploy:monit"
