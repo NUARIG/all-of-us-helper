@@ -612,8 +612,9 @@ class BatchHealthPro < ApplicationRecord
     end
 
     def convert_date(row, column)
-      if row[column.to_sym].present?
-        row[column.to_sym] = Time.parse("#{row[column.to_sym]} UTC").in_time_zone('Central Time (US & Canada)').iso8601
-      end
+      value = row[column.to_sym]
+      return unless value.present?
+
+      row[column.to_sym] = (value == "UNSET") ? nil : Time.parse("#{value} UTC").in_time_zone('Central Time (US & Canada)').iso8601
     end
 end
