@@ -298,12 +298,12 @@ namespace :ehr531 do
     pmi_ids = []
     submission.submission_batch_health_pros.each do |submission_batch_health_pro|
       pmi_ids.concat(submission_batch_health_pro.batch_health_pro.health_pros.where(
-        deactivation_status: 'NOT_SUSPENDED',
-        withdrawal_status: 'NOT_WITHDRAWN',
-        participant_status: HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT,
+        deactivation_status: 'not_deactivated',
+        withdrawal_status: 'not_withdrawn',
+        participant_status: 'core_participant',
         biospecimens_location: HealthPro::BIOSPECIMEN_LOCATIONS.push('UNSET'),
-        general_consent_status: 'SUBMITTED',
-        ehr_consent_status: 'SUBMITTED').map(&:pmi_id))
+        general_consent_status: 'yes',
+        ehr_consent_status: 'yes').map(&:pmi_id))
     end
     person_ids = Person.where(person_source_value: pmi_ids).map(&:person_id)
 
@@ -415,12 +415,12 @@ namespace :ehr531 do
     submission = Submission.find(Submission.maximum(:id))
     batch_health_pro_ids = submission.submission_batch_health_pros.map(&:batch_health_pro_id)
     health_pros = HealthPro.where(batch_health_pro_id: batch_health_pro_ids).where(
-      deactivation_status: 'NOT_SUSPENDED',
-      withdrawal_status: 'NOT_WITHDRAWN',
-      participant_status: HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT,
+      deactivation_status: 'not_deactivated',
+      withdrawal_status: 'not_withdrawn',
+      participant_status: 'core_participant',
       biospecimens_location: HealthPro::BIOSPECIMEN_LOCATIONS.push('UNSET'),
-      general_consent_status: 'SUBMITTED',
-      ehr_consent_status: 'SUBMITTED'
+      general_consent_status: 'yes',
+      ehr_consent_status: 'yes'
     ).all
 
     pmi_ids = submission.participant_matches.where(
