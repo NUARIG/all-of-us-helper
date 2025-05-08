@@ -245,8 +245,7 @@ class RedcapApi
     # digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
 
     puts 'before the API call'
-
-    if (withdrawn_y == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || deactivation_status == HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_NO_CONTACT || donotcontact == '1')
+    if (withdrawn_y == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || deactivation_status == HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_DEACTIVATED || donotcontact == '1')
     payload = {
         :token => @api_token,
         :content => 'record',
@@ -315,7 +314,7 @@ class RedcapApi
     # digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
 
     ts = Date.today
-    if (withdrawn_y == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || deactivation_status == HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_NO_CONTACT || donotcontact == '1')
+    if (withdrawn_y == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || deactivation_status == HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_DEACTIVATED || donotcontact == '1')
     payload = {
         :token => @api_token,
         :content => 'record',
@@ -380,7 +379,8 @@ class RedcapApi
     # digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_status_apple_health_kit_completion_date_d) if digital_health_status_apple_health_kit_completion_date_d
     # digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
 
-    if (withdrawn_y == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || deactivation_status == HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_NO_CONTACT || donotcontact == '1')
+    #Change this to deactived
+    if (withdrawn_y == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || deactivation_status == HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_DEACTIVATED || donotcontact == '1')
     payload = {
         :token => @api_token,
         :content => 'record',
@@ -526,9 +526,9 @@ class RedcapApi
 
     def map_deactivation_status(deactivation_status)
       mapped_deactivation_status = case deactivation_status
-      when HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_NOT_SUSPENDED
+      when HealthPro::HEALTH_PRO_API_DEACTVATION_STATUS_NOT_DEACTIVATED
         '0'
-      when HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_NO_CONTACT
+      when HealthPro::HEALTH_PRO_API_DEACTIVATION_STATUS_DEACTIVATED
         '1'
       end
     end

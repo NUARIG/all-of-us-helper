@@ -356,7 +356,8 @@ class BatchHealthPro < ApplicationRecord
       'consentForCABoRTimeAuthored' => 'cabor_consent_date', # deprecated
       'withdrawalStatus' => 'withdrawal_status',
       'withdrawalAuthored' => 'withdrawal_date',
-      'suspensionStatus' => 'deactivation_status',
+      # Changed from suspensionStatus (Awardee InSite API)
+      'deactivationStatus' => 'deactivation_status',
       'suspensionTime' => 'deactivation_date',
       'withdrawalReason' => 'withdrawal_reason',
       'streetAddress' => 'street_address',
