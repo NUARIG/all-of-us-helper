@@ -6,6 +6,7 @@ namespace :health_pro_api do
       health_pro_api = HealthProApi.new
       health_pro_api.create_service_account_key
       health_pro_api.rotate_service_account_key
+      sleep 5
       health_pro_api.delete_project_service_account_key
       health_pro_api.archive_service_account_key
     rescue => error
