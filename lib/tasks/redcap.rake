@@ -229,7 +229,7 @@ def determine_empi_matches(patient, health_pro)
     empi_params = {}
     error = nil
     study_tracker_api = StudyTrackerApi.new
-    empi_params[:proxy_user] = 'mjg994'
+    empi_params[:proxy_user] = 'yab944'
     empi_params[:first_name] = patient.first_name
     empi_params[:last_name] = patient.last_name
     empi_params[:birth_date] = patient.birth_date
