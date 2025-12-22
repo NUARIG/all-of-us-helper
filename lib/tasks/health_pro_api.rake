@@ -20,7 +20,7 @@ namespace :health_pro_api do
     batch_health_pro = BatchHealthPro.new
     batch_health_pro.batch_type = BatchHealthPro::BATCH_TYPE_HEALTH_PRO_API
     batch_health_pro.health_pro_file = nil
-    batch_health_pro.created_user = 'mjg994'
+    batch_health_pro.created_user = 'yab944'
     batch_health_pro.save!
     options = {}
     options[:update_previously_matched] = true

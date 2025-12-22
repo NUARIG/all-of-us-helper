@@ -219,7 +219,7 @@ class BatchHealthPro < ApplicationRecord
         puts health_pro.pmi_id
         error = nil
         options = {}
-        options[:proxy_user] = 'mjg994'
+        options[:proxy_user] = 'yab944'
         study_tracker_api = StudyTrackerApi.new
         registraion_results = study_tracker_api.register(options, matched_pmi_patient)
         error = registraion_results[:error]
