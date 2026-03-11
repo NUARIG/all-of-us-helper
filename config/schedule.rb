@@ -32,7 +32,7 @@ case environment
       rake "recruitment:load_cohorts"
     end
 
-    every :day, at: '12:00am' do # Use any day of the week or :weekend, :weekday
+    every :day, at: '11:50pm' do # Use any day of the week or :weekend, :weekday
       rake "health_pro_api:rotate_service_account_key"
     end
 
@@ -40,11 +40,11 @@ case environment
       rake "maintenance:expire_batch_health_pros"
     end
 
-    every :day, at: '12:30am' do # Use any day of the week or :weekend, :weekday
+    every '30 0 1 * *' do do # Use any day of the week or :weekend, :weekday
       rake "health_pro_api:import_api"
     end
 
-    every :monday, at: '8:00am' do # Use any day of the week or :weekend, :weekday
+    every '30 0 2 * *' do do # Use any day of the week or :weekend, :weekday
       rake "health_pro_api:export_api_data"
     end
 
