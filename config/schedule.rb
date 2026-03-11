@@ -40,11 +40,11 @@ case environment
       rake "maintenance:expire_batch_health_pros"
     end
 
-    every '30 0 1 * *' do do # Use any day of the week or :weekend, :weekday
+    every '30 0 1 * *' do # Use any day of the week or :weekend, :weekday
       rake "health_pro_api:import_api"
     end
 
-    every '30 0 2 * *' do do # Use any day of the week or :weekend, :weekday
+    every '30 0 2 * *' do # Use any day of the week or :weekend, :weekday
       rake "health_pro_api:export_api_data"
     end
 
