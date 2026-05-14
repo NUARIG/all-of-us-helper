@@ -231,6 +231,7 @@ class RedcapApi
     first_primary_consent_d = safe_parse_date(first_primary_consent_d)
     first_ehr_consent_d = safe_parse_date(first_ehr_consent_d)
     wq_program_update_date = safe_parse_date(wq_program_update_date)
+    donotcontact = map_donotcontact(deceased)
 
     cope_feb_ppi_survey_completion_date_d = safe_parse_date(cope_feb_ppi_survey_completion_date_d)
     core_participant_minus_pm_date_d = safe_parse_date(core_participant_minus_pm_date_d)
