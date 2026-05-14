@@ -169,7 +169,7 @@ class Patient < ApplicationRecord
   end
 
   def ready?
-    self.accepted_match && self.general_consent_status_ready? && self.ehr_consent_status_ready? && self.withdrawal_status_display.blank? && (HealthPro::BIOSPECIMEN_LOCATIONS.include?(self.biospecimens_location) || self.biospecimens_location == 'UNSET') && self.participant_status == HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT
+    self.accepted_match && self.general_consent_status_ready? && self.ehr_consent_status_ready? && self.withdrawal_status_display.blank? && (HealthPro::BIOSPECIMEN_LOCATIONS.include?(self.biospecimens_location) || self.biospecimens_location == 'UNSET') && (self.participant_status == HealthPro::HEALTH_PRO_API_PARTICIPANT_STATUS_CORE_PARTICIPANT || self.participant_status == HealthPro::HEALTH_PRO_API_AWARDEE_PARTICIPANT_STATUS_CORE_PARTICIPANT)
   end
 
   def set_registration_status
@@ -217,7 +217,7 @@ class Patient < ApplicationRecord
       HealthPro::HEALTH_PRO_CONSENT_STATUS_UNDETERMINED
     elsif HealthPro::HEALTH_PRO_API_GENERAL_CONSENT_STATUSES_DECLINED.include?(self.general_consent_status) && self.general_consent_date.present?
       HealthPro::HEALTH_PRO_CONSENT_STATUS_DECLINED
-    elsif self.general_consent_status == HealthPro::HEALTH_PRO_API_GENERAL_CONSENT_STATUS_SUBMITTED && self.general_consent_date.present?
+    elsif (self.general_consent_status == HealthPro::HEALTH_PRO_API_GENERAL_CONSENT_STATUS_SUBMITTED || self.general_consent_status == HealthPro::HEALTH_PRO_API_AWARDEE_CONSENT_STATUS_YES) && self.general_consent_date.present?
       HealthPro::HEALTH_PRO_CONSENT_STATUS_CONSENTED
     end
   end
@@ -227,15 +227,15 @@ class Patient < ApplicationRecord
       HealthPro::HEALTH_PRO_CONSENT_STATUS_UNDETERMINED
     elsif HealthPro::HEALTH_PRO_API_EHR_CONSENT_STATUSES_DECLINED.include?(self.ehr_consent_status) && self.ehr_consent_date.present?
       HealthPro::HEALTH_PRO_CONSENT_STATUS_DECLINED
-    elsif self.ehr_consent_status == HealthPro::HEALTH_PRO_API_EHR_CONSENT_STATUS_SUBMITTED && self.ehr_consent_date.present?
-      HealthPro::HEALTH_PRO_CONSENT_STATUS_CONSENTED
+    elsif (self.ehr_consent_status == HealthPro::HEALTH_PRO_API_EHR_CONSENT_STATUS_SUBMITTED || self.ehr_consent_status == HealthPro::HEALTH_PRO_API_AWARDEE_EHR_CONSENT_STATUS_YES) && self.ehr_consent_date.present?
+      HealthPro::HEALTH_PRO_CONSENT_STATUS_CONSENTED 
     end
   end
 
   def withdrawal_status_display
     if self.withdrawal_status == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NOT_WITHDRAWN && self.withdrawal_date.blank?
       nil
-    elsif self.withdrawal_status == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE && self.withdrawal_date.present?
+    elsif (self.withdrawal_status == HealthPro::HEALTH_PRO_API_WITHDRAWAL_STATUS_NO_USE || self.withdrawal_status == HealthPro::HEALTH_PRO_API_AWARDEE_WITHDRAWAL_STATUS_WITHDRAWN) && self.withdrawal_date.present?
       HealthPro::HEALTH_PRO_CONSENT_STATUS_WITHDRAWN
     end
   end

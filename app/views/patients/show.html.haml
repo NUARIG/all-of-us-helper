@@ -198,7 +198,7 @@
               = link_to 'EMPI', new_empi_lookup_url(first_name: @patient.first_name, last_name: @patient.last_name, birth_date: @patient.birth_date.present? ? @patient.birth_date.to_s(:date): nil, gender: @patient.gender, address: nil, match_id: nil), class: 'new-empi-link button', disabled: @patient.registered?
           = form_with(url: register_patient_url(@patient), local: true, id: 'register-patient-form') do |f|
             = f.submit 'Register Study Tracker', class: 'button', 'data-confirm': 'Register patient?', disabled: (!@patient.ready? || !@patient.demographics_ready? || @patient.registered?)
-          - if current_user.username == 'mjg994' || current_user.username == 'kyh7878'
+          - if current_user.username == 'yab944' || current_user.username == 'kyh7878'
             - if @patient.accepted_match
               = link_to 'EMPI', new_empi_lookup_url(first_name: @patient.first_name, last_name: @patient.last_name, birth_date: @patient.birth_date.present? ? @patient.birth_date.to_s(:date) : nil, gender: @patient.gender.present? ? @patient.gender : @patient.accepted_match.health_pro.sex_to_patient_gender, address: @patient.accepted_match.health_pro.address, match_id: @patient.match.id), class: 'new-empi-link button'
             - else

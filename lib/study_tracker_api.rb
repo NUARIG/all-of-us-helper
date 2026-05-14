@@ -136,7 +136,7 @@ class StudyTrackerApi
   end
 
   def cohorts(options)
-    options = { 'irb_number' => StudyTrackerApi::IRB_NUMBER, 'proxy_user' => 'mjg994', 'current_status_after' => Date.parse('1/1/1900'), 'fields' => 'status_history' }.merge(options)
+    options = { 'irb_number' => StudyTrackerApi::IRB_NUMBER, 'proxy_user' => 'yab944', 'current_status_after' => Date.parse('1/1/1900'), 'fields' => 'status_history' }.merge(options)
     url = Rails.configuration.custom.app_config['study_tracker'][Rails.env]['cohorts'] + '?' + URI.encode_www_form(options)
     response = nil
     error =  nil
