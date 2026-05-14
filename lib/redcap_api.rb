@@ -212,34 +212,34 @@ class RedcapApi
   end
 
   def update_patient(record_id, pmi_id, consent, consent_d, ehr_consent, ehr_consent_d, withdrawn_y, withdrawal_d, wq_participant_status, pm_date, wq_paired_site, wq_paired_org, health_pro_email, health_pro_phone, health_pro_login_phone, gror_consent, gror_consent_d, core_participant_d, deactivation_status, deactivation_date, required_ppi_complete_y, completed_surveys, basics_ppi_complete_y, basics_ppi_complete_d, health_ppi_complete_y, health_ppi_complete_d, lifestyle_ppi_complete_y, lifestyle_ppi_complete_d, access_ppi_complete_y, access_ppi_complete_d, copemay_complete_y, copemay_complete_d, copejune_complete_y, copejune_complete_d, copejuly_complete_y, copejuly_complete_d, first_primary_consent_d, first_ehr_consent_d, health_pro_address1, health_pro_address2, health_pro_city, health_pro_state, health_pro_zip, wq_program_update_status, wq_program_update_date, deceased, cope_feb_ppi_survey_complete_y, cope_feb_ppi_survey_completion_date_d, core_participant_minus_pm_date_d, summer_minute_ppi_survey_complete_y, summer_minute_ppi_survey_completion_date_d, fall_minute_ppi_survey_complete_y, fall_minute_ppi_survey_completion_date_d, personal_and_family_hx_ppi_survey_complete_y, personal_and_family_hx_ppi_survey_completion_date_d, sdoh_ppi_survey_complete_y, sdoh_ppi_survey_completion_date_d, winter_minute_ppi_survey_complete_y, winter_minute_ppi_survey_completion_date_d, digital_health_status_fitbit_complete_y, digital_health_status_fitbit_completion_date_d, digital_health_status_apple_health_kit_complete_y, digital_health_status_apple_health_kit_completion_date_d, digital_health_status_apple_health_ehr_complete_y, digital_health_status_apple_health_ehr_completion_date_d, history_ppi_complete_y, history_ppi_complete_d, family_ppi_complete_y, family_ppi_complete_d)
-    consent_d = Date.parse(consent_d) if consent_d
-    ehr_consent_d = Date.parse(ehr_consent_d) if ehr_consent_d
-    withdrawal_d = Date.parse(withdrawal_d) if withdrawal_d
-    pm_date = Date.parse(pm_date) if pm_date
-    gror_consent_d = Date.parse(gror_consent_d) if gror_consent_d
-    core_participant_d = Date.parse(core_participant_d) if core_participant_d
-    deactivation_date = Date.parse(deactivation_date) if deactivation_date
-    basics_ppi_complete_d = Date.parse(basics_ppi_complete_d) if basics_ppi_complete_d
-    health_ppi_complete_d = Date.parse(health_ppi_complete_d) if health_ppi_complete_d
-    lifestyle_ppi_complete_d = Date.parse(lifestyle_ppi_complete_d) if lifestyle_ppi_complete_d
-    history_ppi_complete_d = Date.parse(history_ppi_complete_d) if history_ppi_complete_d
-    family_ppi_complete_d = Date.parse(family_ppi_complete_d) if family_ppi_complete_d
-    access_ppi_complete_d = Date.parse(access_ppi_complete_d) if access_ppi_complete_d
-    copemay_complete_d = Date.parse(copemay_complete_d) if copemay_complete_d
-    copejune_complete_d = Date.parse(copejune_complete_d) if copejune_complete_d
-    copejuly_complete_d = Date.parse(copejuly_complete_d) if copejuly_complete_d
-    first_primary_consent_d = Date.parse(first_primary_consent_d) if first_primary_consent_d
-    first_ehr_consent_d = Date.parse(first_ehr_consent_d) if first_ehr_consent_d
-    wq_program_update_date = Date.parse(wq_program_update_date) if wq_program_update_date
+    consent_d = safe_parse_date(consent_d)
+    ehr_consent_d = safe_parse_date(ehr_consent_d)
+    withdrawal_d = safe_parse_date(withdrawal_d)
+    pm_date = safe_parse_date(pm_date)
+    gror_consent_d = safe_parse_date(gror_consent_d)
+    core_participant_d = safe_parse_date(core_participant_d)
+    deactivation_date = safe_parse_date(deactivation_date)
+    basics_ppi_complete_d = safe_parse_date(basics_ppi_complete_d)
+    health_ppi_complete_d = safe_parse_date(health_ppi_complete_d)
+    lifestyle_ppi_complete_d = safe_parse_date(lifestyle_ppi_complete_d)
+    history_ppi_complete_d = safe_parse_date(history_ppi_complete_d)
+    family_ppi_complete_d = safe_parse_date(family_ppi_complete_d)
+    access_ppi_complete_d = safe_parse_date(access_ppi_complete_d)
+    copemay_complete_d = safe_parse_date(copemay_complete_d)
+    copejune_complete_d = safe_parse_date(copejune_complete_d)
+    copejuly_complete_d = safe_parse_date(copejuly_complete_d)
+    first_primary_consent_d = safe_parse_date(first_primary_consent_d)
+    first_ehr_consent_d = safe_parse_date(first_ehr_consent_d)
+    wq_program_update_date = safe_parse_date(wq_program_update_date)
     donotcontact = map_donotcontact(deceased)
 
-    cope_feb_ppi_survey_completion_date_d = Date.parse(cope_feb_ppi_survey_completion_date_d) if cope_feb_ppi_survey_completion_date_d
-    core_participant_minus_pm_date_d = Date.parse(core_participant_minus_pm_date_d) if core_participant_minus_pm_date_d
-    summer_minute_ppi_survey_completion_date_d = Date.parse(summer_minute_ppi_survey_completion_date_d) if summer_minute_ppi_survey_completion_date_d
-    fall_minute_ppi_survey_completion_date_d = Date.parse(fall_minute_ppi_survey_completion_date_d) if fall_minute_ppi_survey_completion_date_d
-    personal_and_family_hx_ppi_survey_completion_date_d = Date.parse(personal_and_family_hx_ppi_survey_completion_date_d) if personal_and_family_hx_ppi_survey_completion_date_d
-    sdoh_ppi_survey_completion_date_d = Date.parse(sdoh_ppi_survey_completion_date_d) if sdoh_ppi_survey_completion_date_d
-    winter_minute_ppi_survey_completion_date_d = Date.parse(winter_minute_ppi_survey_completion_date_d) if winter_minute_ppi_survey_completion_date_d
+    cope_feb_ppi_survey_completion_date_d = safe_parse_date(cope_feb_ppi_survey_completion_date_d)
+    core_participant_minus_pm_date_d = safe_parse_date(core_participant_minus_pm_date_d)
+    summer_minute_ppi_survey_completion_date_d = safe_parse_date(summer_minute_ppi_survey_completion_date_d)
+    fall_minute_ppi_survey_completion_date_d = safe_parse_date(fall_minute_ppi_survey_completion_date_d)
+    personal_and_family_hx_ppi_survey_completion_date_d = safe_parse_date(personal_and_family_hx_ppi_survey_completion_date_d)
+    sdoh_ppi_survey_completion_date_d = safe_parse_date(sdoh_ppi_survey_completion_date_d)
+    winter_minute_ppi_survey_completion_date_d = safe_parse_date(winter_minute_ppi_survey_completion_date_d)
     # digital_health_status_fitbit_completion_date_d = Date.parse(digital_health_status_fitbit_completion_date_d) if digital_health_status_fitbit_completion_date_d
     # digital_health_status_apple_health_kit_completion_date_d = Date.parse(digital_health_status_apple_health_kit_completion_date_d) if digital_health_status_apple_health_kit_completion_date_d
     # digital_health_status_apple_health_ehr_completion_date_d = Date.parse(digital_health_status_apple_health_ehr_completion_date_d) if digital_health_status_apple_health_ehr_completion_date_d
@@ -276,6 +276,14 @@ class RedcapApi
 
     puts 'after the api call'
     { response: record_id, error: api_response[:error] }
+  end
+
+  def safe_parse_date(value)
+    return nil if value.blank?
+
+    Date.parse(value.to_s)
+  rescue Date::Error, TypeError
+    nil
   end
 
   def create_patient(first_name, last_name, email, phone_1, pmi_id, consent, consent_d, ehr_consent, ehr_consent_d, withdrawn_y, withdrawal_d, wq_participant_status, pm_date, wq_paired_site, wq_paired_org, health_pro_email, health_pro_phone, health_pro_login_phone, gror_consent, gror_consent_d, core_participant_d, deactivation_status, deactivation_date, required_ppi_complete_y, completed_surveys, basics_ppi_complete_y, basics_ppi_complete_d, health_ppi_complete_y, health_ppi_complete_d, lifestyle_ppi_complete_y, lifestyle_ppi_complete_d, access_ppi_complete_y, access_ppi_complete_d, copemay_complete_y, copemay_complete_d, copejune_complete_y, copejune_complete_d, copejuly_complete_y, copejuly_complete_d, site_preference___1, site_preference___2, site_preference___3, site_preference___4, first_primary_consent_d, first_ehr_consent_d, health_pro_address1, health_pro_address2, health_pro_city, health_pro_state, health_pro_zip, wq_program_update_status, wq_program_update_date, deceased, cope_feb_ppi_survey_complete_y, cope_feb_ppi_survey_completion_date_d, core_participant_minus_pm_date_d, summer_minute_ppi_survey_complete_y, summer_minute_ppi_survey_completion_date_d, fall_minute_ppi_survey_complete_y, fall_minute_ppi_survey_completion_date_d, personal_and_family_hx_ppi_survey_complete_y, personal_and_family_hx_ppi_survey_completion_date_d, sdoh_ppi_survey_complete_y, sdoh_ppi_survey_completion_date_d, winter_minute_ppi_survey_complete_y, winter_minute_ppi_survey_completion_date_d, digital_health_status_fitbit_complete_y, digital_health_status_fitbit_completion_date_d, digital_health_status_apple_health_kit_complete_y, digital_health_status_apple_health_kit_completion_date_d, digital_health_status_apple_health_ehr_complete_y, digital_health_status_apple_health_ehr_completion_date_d, history_ppi_complete_y, history_ppi_complete_d, family_ppi_complete_y, family_ppi_complete_d)
