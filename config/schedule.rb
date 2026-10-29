@@ -32,21 +32,21 @@ case environment
       rake "recruitment:load_cohorts"
     end
 
-    every :day, at: '11:50pm' do # Use any day of the week or :weekend, :weekday
-      rake "health_pro_api:rotate_service_account_key"
-    end
+    # every :day, at: '11:50pm' do # Use any day of the week or :weekend, :weekday
+    #   rake "health_pro_api:rotate_service_account_key"
+    # end
 
-    every :day, at: '12:15am' do # Use any day of the week or :weekend, :weekday
-      rake "maintenance:expire_batch_health_pros"
-    end
+    # every :day, at: '12:15am' do # Use any day of the week or :weekend, :weekday
+    #   rake "maintenance:expire_batch_health_pros"
+    # end
 
-    every '30 0 1 * *' do # Use any day of the week or :weekend, :weekday
-      rake "health_pro_api:import_api"
-    end
+    # every '30 0 1 * *' do # Use any day of the week or :weekend, :weekday
+    #   rake "health_pro_api:import_api"
+    # end
 
-    every '30 0 2 * *' do # Use any day of the week or :weekend, :weekday
-      rake "health_pro_api:export_api_data"
-    end
+    # every '30 0 2 * *' do # Use any day of the week or :weekend, :weekday
+    #   rake "health_pro_api:export_api_data"
+    # end
 
     every 1.day, at: ['9:00 am', '10:00 am', '11:00 am', '12:00 pm', '1:00 pm', '2:00 pm', '3:00 pm', '4:00 pm', '5:00 pm'] do
       rake "redcap:synch_patients"
